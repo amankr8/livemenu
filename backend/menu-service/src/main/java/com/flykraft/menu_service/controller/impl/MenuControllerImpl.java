@@ -34,8 +34,8 @@ public class MenuControllerImpl implements MenuController {
     }
 
     @Override
-    public ResponseEntity<?> toggleStatusForMenuItem(Long menuItemId) {
-        return ResponseEntity.ok().body(menuService.toggleStatusForMenuItem(menuItemId).toResponseDto());
+    public ResponseEntity<?> toggleInStockForMenuItem(Long menuItemId) {
+        return ResponseEntity.ok().body(menuService.toggleInStockForMenuItem(menuItemId).toResponseDto());
     }
 
     @Override

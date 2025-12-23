@@ -15,5 +15,6 @@ public class MenuItemResponseDto {
     private Long kitchenId;
     private Category category;
     private Boolean inStock;
+    private Boolean isVeg;
     private BigDecimal price;
 }

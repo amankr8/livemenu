@@ -39,6 +39,9 @@ public class MenuItem {
     @Column(name = "item_in_stock")
     private Boolean inStock;
 
+    @Column(name = "item_is_veg")
+    private Boolean isVeg;
+
     @Column(name = "item_price")
     private BigDecimal price;
 
@@ -50,6 +53,7 @@ public class MenuItem {
                 .kitchenId(this.kitchen.getId())
                 .category(this.category)
                 .inStock(this.inStock)
+                .isVeg(this.isVeg)
                 .price(this.price)
                 .build();
     }

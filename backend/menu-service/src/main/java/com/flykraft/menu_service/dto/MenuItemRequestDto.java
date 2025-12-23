@@ -10,5 +10,6 @@ public class MenuItemRequestDto {
     private String name;
     private String desc;
     private Category category;
+    private Boolean isVeg;
     private BigDecimal price;
 }

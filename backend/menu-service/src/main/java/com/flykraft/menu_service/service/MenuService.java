@@ -15,7 +15,7 @@ public interface MenuService {
 
     MenuItem updateMenuItem(Long menuItemId, MenuItemRequestDto menuItemRequestDto);
 
-    MenuItem toggleStatusForMenuItem(Long menuItemId);
+    MenuItem toggleInStockForMenuItem(Long menuItemId);
 
     void deleteMenuItemById(Long menuItemId);
 }

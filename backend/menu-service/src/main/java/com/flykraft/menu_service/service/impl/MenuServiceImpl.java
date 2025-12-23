@@ -37,6 +37,7 @@ public class MenuServiceImpl implements MenuService {
                 .desc(menuItemRequestDto.getDesc())
                 .category(menuItemRequestDto.getCategory())
                 .inStock(Boolean.TRUE)
+                .isVeg(menuItemRequestDto.getIsVeg())
                 .price(menuItemRequestDto.getPrice())
                 .build();
         return menuItemRepository.save(menuItem);
@@ -48,12 +49,13 @@ public class MenuServiceImpl implements MenuService {
         selectedMenuItem.setName(menuItemRequestDto.getName());
         selectedMenuItem.setDesc(menuItemRequestDto.getDesc());
         selectedMenuItem.setCategory(menuItemRequestDto.getCategory());
+        selectedMenuItem.setIsVeg(menuItemRequestDto.getIsVeg());
         selectedMenuItem.setPrice(menuItemRequestDto.getPrice());
         return menuItemRepository.save(selectedMenuItem);
     }
 
     @Override
-    public MenuItem toggleStatusForMenuItem(Long menuItemId) {
+    public MenuItem toggleInStockForMenuItem(Long menuItemId) {
         MenuItem menuItem = getMenuItemById(menuItemId);
         menuItem.setInStock(!menuItem.getInStock());
         return menuItemRepository.save(menuItem);

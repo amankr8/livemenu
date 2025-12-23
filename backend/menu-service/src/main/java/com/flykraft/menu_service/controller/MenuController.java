@@ -17,7 +17,7 @@ public interface MenuController {
     ResponseEntity<?> updateMenuItem(@PathVariable Long menuItemId, @RequestBody MenuItemRequestDto menuItemRequestDto);
 
     @PatchMapping("/{menuItemId}")
-    ResponseEntity<?> toggleStatusForMenuItem(@PathVariable Long menuItemId);
+    ResponseEntity<?> toggleInStockForMenuItem(@PathVariable Long menuItemId);
 
     @DeleteMapping("/{menuItemId}")
     ResponseEntity<?> deleteMenuItem(@PathVariable Long menuItemId);
