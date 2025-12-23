@@ -1,0 +1,64 @@
+<div class="max-w-md mx-auto bg-gray-50 min-h-screen pb-20">
+  <div class="p-6 bg-white border-b">
+    <h1 class="text-2xl font-black text-gray-900 tracking-tight">
+      The Kitchen Hub
+    </h1>
+    <p class="text-sm text-gray-500 italic">Indiranagar, Bangalore</p>
+  </div>
+
+  <div
+    class="sticky top-0 bg-white shadow-sm border-b overflow-x-auto whitespace-nowrap p-3 flex gap-4 z-10 no-scrollbar"
+  >
+    <button
+      *ngFor="let cat of categories"
+      class="px-4 py-1.5 rounded-full border border-gray-200 text-sm font-bold bg-white active:bg-orange-500 active:text-white transition"
+    >
+      {{ cat }}
+    </button>
+  </div>
+
+  <div class="p-4 space-y-8">
+    <div *ngFor="let cat of categories">
+      <h2 class="text-xl font-bold mb-4 text-gray-800">{{ cat }}</h2>
+
+      <div class="space-y-4">
+        <div
+          *ngFor="let item of getItemsByCategory(cat)"
+          class="flex bg-white rounded-2xl p-3 shadow-sm border border-gray-100 items-center justify-between"
+        >
+          <div class="flex-1 pr-4">
+            <div class="flex items-center gap-1 mb-1">
+              <span
+                [class]="item.isVeg ? 'text-green-600' : 'text-red-600'"
+                class="text-[10px]"
+                >●</span
+              >
+              <span class="text-[10px] uppercase font-bold text-gray-400"
+                >Best Seller</span
+              >
+            </div>
+            <h3 class="font-bold text-gray-800">{{ item.name }}</h3>
+            <p class="text-lg font-black mt-1 text-gray-900">
+              ₹{{ item.price }}
+            </p>
+            <p class="text-xs text-gray-500 mt-1 line-clamp-2 leading-relaxed">
+              {{ item.description }}
+            </p>
+          </div>
+
+          <div class="relative">
+            <img
+              [src]="item.image"
+              class="w-24 h-24 rounded-xl object-cover bg-gray-100"
+            />
+            <button
+              class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-white text-orange-600 border border-orange-200 shadow-lg px-6 py-1 rounded-lg font-black text-sm active:scale-90 transition hover:bg-orange-50"
+            >
+              ADD
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
