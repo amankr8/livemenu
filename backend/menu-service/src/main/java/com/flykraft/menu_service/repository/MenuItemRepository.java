@@ -1,0 +1,10 @@
+package com.flykraft.menu_service.repository;
+
+import com.flykraft.menu_service.model.MenuItem;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface MenuItemRepository extends JpaRepository<MenuItem, Long> {
+    List<MenuItem> findAllByKitchenId(Long kitchenId);
+}
