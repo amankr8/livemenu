@@ -1,12 +1,12 @@
 <div class="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
   <!-- Header Section -->
-  <div class="max-w-7xl mx-auto mb-8">
-    <h1 class="text-4xl font-bold text-gray-900 mb-2">Our Menu</h1>
+  <div class="max-w-4xl mx-auto mb-8">
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">Meghana Foods</h1>
     <p class="text-gray-600">Discover our delicious offerings</p>
   </div>
 
   <!-- Loading State -->
-  <div *ngIf="isLoading" class="max-w-7xl mx-auto">
+  <div *ngIf="isLoading" class="max-w-4xl mx-auto">
     <div class="flex justify-center items-center h-64">
       <div
         class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-red-500"
@@ -15,7 +15,7 @@
   </div>
 
   <!-- Error State -->
-  <div *ngIf="errorMessage && !isLoading" class="max-w-7xl mx-auto">
+  <div *ngIf="errorMessage && !isLoading" class="max-w-4xl mx-auto">
     <div
       class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded relative"
       role="alert"
@@ -25,11 +25,9 @@
     </div>
   </div>
 
-  <!-- Menu Items Grid -->
+  <!-- Menu Items Grid - Responsive horizontal cards -->
   <div *ngIf="!isLoading && !errorMessage" class="max-w-7xl mx-auto">
-    <div
-      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-    >
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
       <app-menu-item-card *ngFor="let item of menuItems" [menuItem]="item">
       </app-menu-item-card>
     </div>
