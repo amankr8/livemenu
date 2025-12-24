@@ -12,7 +12,7 @@
 	<artifactId>server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>livemenu</name>
-	<description>Server for Livemenu Application</description>
+	<description>Server for LiveMenu Application</description>
 	<url/>
 	<licenses>
 		<license/>
