@@ -3,7 +3,7 @@ spring:
     name: livemenu
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/hellokitchens
+    url: jdbc:postgresql://localhost:5432/livemenu_db
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
@@ -16,6 +16,8 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
   security:
+    username: ${ADMIN_USERNAME:livemenu}
+    password: ${ADMIN_PASSWORD:admin}
     jwt:
       secret: ${JWT_SECRET}
       expiration: 86400000
