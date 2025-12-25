@@ -19,4 +19,5 @@ public class MenuItemResponseDto {
     private Boolean inStock;
     private Boolean isVeg;
     private BigDecimal price;
+    private String imageUrl;
 }
