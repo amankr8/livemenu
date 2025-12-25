@@ -5,12 +5,17 @@ import com.flykraft.livemenu.model.Auditable;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
+@FilterDef(name = "kitchenFilter", parameters = @ParamDef(name = "kitchenId", type = Long.class))
+@Filter(name = "kitchenFilter", condition = "k_id = :kitchenId")
 @Entity
 @Table(name = "kitchens")
 public class Kitchen extends Auditable {

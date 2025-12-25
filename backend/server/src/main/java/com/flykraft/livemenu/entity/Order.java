@@ -5,10 +5,15 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
 
 @Getter
 @Setter
 @SuperBuilder
+@FilterDef(name = "kitchenFilter", parameters = @ParamDef(name = "kitchenId", type = Long.class))
+@Filter(name = "kitchenFilter", condition = "k_id = :kitchenId")
 @Entity
 @Table(name = "orders")
 public class Order extends Auditable {
@@ -17,4 +22,8 @@ public class Order extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "o_id")
     private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "k_id")
+    private Kitchen kitchen;
 }
