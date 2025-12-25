@@ -50,7 +50,7 @@ public class AuthServiceImpl implements AuthService {
         AuthUser authUser = AuthUser.builder()
                 .username(authRequestDto.getUsername())
                 .password(encodedPassword)
-                .authority(Authority.getAuthorityById(authRequestDto.getAuthId()))
+                .authority(Authority.CUSTOMER)
                 .build();
         authUserRepository.save(authUser);
     }

@@ -31,13 +31,4 @@ public class KitchenOwner extends Auditable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "k_id", nullable = false)
     private Kitchen kitchen;
-
-    @Column(name = "ko_name")
-    private String name;
-
-    @Column(name = "ko_email")
-    private String email;
-
-    @Column(name = "ko_phone")
-    private String phone;
 }

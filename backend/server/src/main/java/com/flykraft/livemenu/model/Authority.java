@@ -19,15 +19,4 @@ public enum Authority implements GrantedAuthority {
     public @NonNull String getAuthority() {
         return authority;
     }
-
-    public static Authority getAuthorityById(int id) {
-        if (id > 0) {
-            for (Authority authority : Authority.values()) {
-                if (authority.getId() == id) {
-                    return authority;
-                }
-            }
-        }
-        throw new IllegalArgumentException("No authority found for id: " + id);
-    }
 }
