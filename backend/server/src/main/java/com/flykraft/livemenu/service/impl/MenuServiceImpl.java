@@ -12,6 +12,7 @@ import com.flykraft.livemenu.repository.MenuItemRepository;
 import com.flykraft.livemenu.service.CloudinaryService;
 import com.flykraft.livemenu.service.KitchenService;
 import com.flykraft.livemenu.service.MenuService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,7 @@ public class MenuServiceImpl implements MenuService {
                 .orElseThrow(() -> new ResourceNotFoundException("Menu item with id " + menuItemId + " not found"));
     }
 
+    @Transactional
     @Override
     public MenuItem addMenuItem(MenuItemRequestDto menuItemRequestDto) {
         Long currentKitchenId = TenantContext.getKitchenId();
@@ -74,6 +76,7 @@ public class MenuServiceImpl implements MenuService {
         }
     }
 
+    @Transactional
     @Override
     public MenuItem updateMenuItem(Long menuItemId, MenuItemRequestDto menuItemRequestDto) {
         MenuItem selectedMenuItem = getMenuItemById(menuItemId);
