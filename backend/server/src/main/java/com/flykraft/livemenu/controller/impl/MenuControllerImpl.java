@@ -17,10 +17,10 @@ public class MenuControllerImpl implements MenuController {
     private final MenuService menuService;
 
     @Override
-    public ResponseEntity<?> getMenuByKitchenSubdomain(String kitchenSubdomain) {
-        List<MenuItemResponseDto> menuItemsByKitchen = menuService.getMenuItemsByKitchen(kitchenSubdomain)
+    public ResponseEntity<?> getMenu() {
+        List<MenuItemResponseDto> menuItems = menuService.getAllMenuItems()
                 .stream().map(MenuItem::toResponseDto).toList();
-        return ResponseEntity.ok().body(menuItemsByKitchen);
+        return ResponseEntity.ok().body(menuItems);
     }
 
     @Override

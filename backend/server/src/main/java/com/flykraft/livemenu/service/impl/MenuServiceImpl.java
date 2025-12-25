@@ -28,9 +28,8 @@ public class MenuServiceImpl implements MenuService {
     private final CloudinaryService cloudinaryService;
 
     @Override
-    public List<MenuItem> getMenuItemsByKitchen(String kitchenSubdomain) {
-        Kitchen kitchen = kitchenService.getKitchenBySubdomain(kitchenSubdomain);
-        return menuItemRepository.findAllByKitchenId(kitchen.getId());
+    public List<MenuItem> getAllMenuItems() {
+        return menuItemRepository.findAll();
     }
 
     @Override

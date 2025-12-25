@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/v1/menus")
 public interface MenuController {
 
-    @GetMapping("/{kitchenSubdomain}")
-    ResponseEntity<?> getMenuByKitchenSubdomain(@PathVariable String kitchenSubdomain);
+    @GetMapping
+    ResponseEntity<?> getMenu();
 
     @PostMapping("/kitchen/{kitchenId}")
     ResponseEntity<?> addMenuItemToKitchen(@PathVariable Long kitchenId, @RequestBody MenuItemRequestDto menuItemRequestDto);

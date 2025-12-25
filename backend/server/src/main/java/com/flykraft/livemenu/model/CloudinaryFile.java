@@ -7,6 +7,8 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @SuperBuilder
 @MappedSuperclass
 public class CloudinaryFile {

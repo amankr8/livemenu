@@ -6,8 +6,7 @@ import com.flykraft.livemenu.entity.MenuItem;
 import java.util.List;
 
 public interface MenuService {
-
-    List<MenuItem> getMenuItemsByKitchen(String kitchenSubdomain);
+    List<MenuItem> getAllMenuItems();
 
     MenuItem getMenuItemById(Long menuItemId);
 
