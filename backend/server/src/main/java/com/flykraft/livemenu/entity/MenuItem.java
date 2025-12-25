@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "menu_item")
+@Table(name = "menu_items")
 public class MenuItem extends Auditable {
 
     @Id

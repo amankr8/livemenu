@@ -10,7 +10,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 @Entity
-@Table(name = "dish_image")
+@Table(name = "dish_images")
 public class DishImage extends CloudinaryFile {
 
     @Id

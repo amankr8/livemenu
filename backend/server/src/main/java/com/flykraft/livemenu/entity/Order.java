@@ -1,20 +1,20 @@
 package com.flykraft.livemenu.entity;
 
 import com.flykraft.livemenu.model.Auditable;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 public class Order extends Auditable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "o_id")
+    private Long id;
 }

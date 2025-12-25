@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "kitchen_owner")
+@Table(name = "kitchen_owners")
 public class KitchenOwner extends Auditable {
 
     @Id
