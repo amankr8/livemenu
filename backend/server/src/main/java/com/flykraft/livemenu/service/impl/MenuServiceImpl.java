@@ -5,6 +5,7 @@ import com.flykraft.livemenu.entity.DishImage;
 import com.flykraft.livemenu.entity.Kitchen;
 import com.flykraft.livemenu.entity.MenuItem;
 import com.flykraft.livemenu.model.CloudinaryFile;
+import com.flykraft.livemenu.repository.DishImageRepository;
 import com.flykraft.livemenu.repository.MenuItemRepository;
 import com.flykraft.livemenu.service.CloudinaryService;
 import com.flykraft.livemenu.service.KitchenService;
@@ -22,6 +23,7 @@ import java.util.List;
 @Service
 public class MenuServiceImpl implements MenuService {
     private final MenuItemRepository menuItemRepository;
+    private final DishImageRepository dishImageRepository;
     private final KitchenService kitchenService;
     private final CloudinaryService cloudinaryService;
 
@@ -55,13 +57,14 @@ public class MenuServiceImpl implements MenuService {
     }
 
     private DishImage saveImage(MultipartFile imageFile, String folderPath) {
-        if  (imageFile == null) return null;
+        if  (imageFile == null || imageFile.isEmpty()) return null;
         try {
             CloudinaryFile cloudinaryFile = cloudinaryService.uploadFile(imageFile, folderPath);
-            return DishImage.builder()
+            DishImage dishImage = DishImage.builder()
                     .publicId(cloudinaryFile.getPublicId())
                     .url(cloudinaryFile.getUrl())
                     .build();
+            return dishImageRepository.save(dishImage);
         } catch (IOException e) {
             log.error("Error uploading image {}: {}", imageFile.getOriginalFilename(), e.getMessage(), e);
             return null;

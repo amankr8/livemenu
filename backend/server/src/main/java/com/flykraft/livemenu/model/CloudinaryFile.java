@@ -1,15 +1,19 @@
 package com.flykraft.livemenu.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-@Data
-@Builder
-@AllArgsConstructor
-@RequiredArgsConstructor
+@Getter
+@Setter
+@SuperBuilder
+@MappedSuperclass
 public class CloudinaryFile {
+
+    @Column(name = "public_id")
     private String publicId;
+
+    @Column(name = "url")
     private String url;
 }

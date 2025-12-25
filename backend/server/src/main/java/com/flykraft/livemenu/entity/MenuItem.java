@@ -1,22 +1,22 @@
 package com.flykraft.livemenu.entity;
 
 import com.flykraft.livemenu.dto.menu.MenuItemResponseDto;
+import com.flykraft.livemenu.model.Auditable;
 import com.flykraft.livemenu.model.Category;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 
-@Data
-@Builder
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@SuperBuilder
 @Entity
 @Table(name = "menu_item")
-public class MenuItem {
+public class MenuItem extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

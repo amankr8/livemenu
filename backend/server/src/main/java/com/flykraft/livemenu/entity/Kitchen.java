@@ -1,19 +1,19 @@
 package com.flykraft.livemenu.entity;
 
 import com.flykraft.livemenu.dto.kitchen.KitchenResponseDto;
+import com.flykraft.livemenu.model.Auditable;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-@Data
-@Builder
-@AllArgsConstructor
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
 @Entity
 @Table(name = "kitchen")
-public class Kitchen {
+public class Kitchen extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

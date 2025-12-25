@@ -1,27 +1,20 @@
 package com.flykraft.livemenu.entity;
 
+import com.flykraft.livemenu.model.CloudinaryFile;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter
+@Setter
+@SuperBuilder
 @Entity
 @Table(name = "dish_image")
-public class DishImage {
+public class DishImage extends CloudinaryFile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "di_id")
     private Long id;
-
-    @Column(name = "di_public_id")
-    private String publicId;
-
-    @Column(name = "di_url")
-    private String url;
 }
