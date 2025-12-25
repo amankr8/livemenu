@@ -10,8 +10,8 @@ public interface MenuController {
     @GetMapping
     ResponseEntity<?> getMenu();
 
-    @PostMapping("/kitchen/{kitchenId}")
-    ResponseEntity<?> addMenuItemToKitchen(@PathVariable Long kitchenId, @RequestBody MenuItemRequestDto menuItemRequestDto);
+    @PostMapping
+    ResponseEntity<?> addMenuItem(@RequestBody MenuItemRequestDto menuItemRequestDto);
 
     @PutMapping("/{menuItemId}")
     ResponseEntity<?> updateMenuItem(@PathVariable Long menuItemId, @RequestBody MenuItemRequestDto menuItemRequestDto);

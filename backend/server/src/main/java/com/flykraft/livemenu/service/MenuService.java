@@ -10,7 +10,7 @@ public interface MenuService {
 
     MenuItem getMenuItemById(Long menuItemId);
 
-    MenuItem addMenuItemToKitchen(Long kitchenId, MenuItemRequestDto menuItemRequestDto);
+    MenuItem addMenuItem(MenuItemRequestDto menuItemRequestDto);
 
     MenuItem updateMenuItem(Long menuItemId, MenuItemRequestDto menuItemRequestDto);
 

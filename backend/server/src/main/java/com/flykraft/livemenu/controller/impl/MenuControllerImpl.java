@@ -24,8 +24,8 @@ public class MenuControllerImpl implements MenuController {
     }
 
     @Override
-    public ResponseEntity<?> addMenuItemToKitchen(Long kitchenId, MenuItemRequestDto menuItemRequestDto) {
-        return ResponseEntity.ok().body(menuService.addMenuItemToKitchen(kitchenId, menuItemRequestDto).toResponseDto());
+    public ResponseEntity<?> addMenuItem(MenuItemRequestDto menuItemRequestDto) {
+        return ResponseEntity.ok().body(menuService.addMenuItem(menuItemRequestDto).toResponseDto());
     }
 
     @Override

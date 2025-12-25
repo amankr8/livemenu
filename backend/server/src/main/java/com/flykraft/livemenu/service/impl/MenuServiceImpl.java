@@ -1,5 +1,6 @@
 package com.flykraft.livemenu.service.impl;
 
+import com.flykraft.livemenu.config.TenantContext;
 import com.flykraft.livemenu.dto.menu.MenuItemRequestDto;
 import com.flykraft.livemenu.entity.DishImage;
 import com.flykraft.livemenu.entity.Kitchen;
@@ -38,10 +39,11 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public MenuItem addMenuItemToKitchen(Long kitchenId, MenuItemRequestDto menuItemRequestDto) {
-        Kitchen kitchen = kitchenService.getKitchenById(kitchenId);
-        DishImage dishImage = saveImage(menuItemRequestDto.getImage(), getFolderPathForMenuItem(kitchenId));
+    public MenuItem addMenuItem(MenuItemRequestDto menuItemRequestDto) {
+        Long currentKitchenId = TenantContext.getKitchenId();
+        Kitchen kitchen = kitchenService.getKitchenById(currentKitchenId);
 
+        DishImage dishImage = saveImage(menuItemRequestDto.getImage(), getFolderPathForMenuItem(kitchen.getId()));
         MenuItem menuItem = MenuItem.builder()
                 .kitchen(kitchen)
                 .name(menuItemRequestDto.getName())
