@@ -14,8 +14,6 @@ import org.hibernate.annotations.ParamDef;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-@FilterDef(name = "kitchenFilter", parameters = @ParamDef(name = "kitchenId", type = Long.class))
-@Filter(name = "kitchenFilter", condition = "k_id = :kitchenId")
 @Entity
 @Table(name = "kitchens")
 public class Kitchen extends Auditable {
@@ -34,10 +32,10 @@ public class Kitchen extends Auditable {
     @Column(name = "k_address")
     private String address;
 
-    @Column(name = "k_subdomain")
+    @Column(name = "k_subdomain", unique = true, nullable = false)
     private String subdomain;
 
-    @Column(name = "k_whatsapp")
+    @Column(name = "k_whatsapp", nullable = false)
     private String whatsapp;
 
     public KitchenResponseDto toResponseDto() {

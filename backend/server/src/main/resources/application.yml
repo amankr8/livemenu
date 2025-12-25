@@ -9,11 +9,19 @@ spring:
     driver-class-name: org.postgresql.Driver
 
   jpa:
+    show-sql: true
     hibernate:
       ddl-auto: create-drop
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        use_sql_comments: true
+      defer-datasource-initialization: true
+
+  sql:
+    init:
+      mode: always
 
   security:
     username: ${ADMIN_USERNAME:livemenu}
@@ -21,6 +29,16 @@ spring:
     jwt:
       secret: ${JWT_SECRET}
       expiration: 86400000
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
 
 cloudinary:
   url: cloudinary://${CN_KEY}:${CN_SECRET}@${CN_NAME}
