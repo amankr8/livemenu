@@ -7,9 +7,9 @@ import org.springframework.security.core.GrantedAuthority;
 
 @AllArgsConstructor
 public enum Authority implements GrantedAuthority {
-    ADMIN(0, "Admin"),
-    KITCHEN_OWNER(1, "Kitchen Owner"),
-    CUSTOMER(2, "Customer");
+    ADMIN(0, "ADMIN"),
+    KITCHEN_OWNER(1, "KITCHEN_OWNER"),
+    CUSTOMER(2, "CUSTOMER");
 
     @Getter
     private final Integer id;

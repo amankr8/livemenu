@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -41,31 +43,40 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void signup(AuthRequestDto authRequestDto) {
-        if (authUserRepository.findByUsername(authRequestDto.getUsername()).isPresent()) {
-            throw new IllegalArgumentException("User already exists");
-        }
+    public AuthUser loadUserByUsername(String username) {
+        return authUserRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
 
-        String encodedPassword = passwordEncoder.encode(authRequestDto.getPassword());
-        AuthUser authUser = AuthUser.builder()
-                .username(authRequestDto.getUsername())
-                .password(encodedPassword)
-                .authority(Authority.CUSTOMER)
-                .build();
-        authUserRepository.save(authUser);
+    @Override
+    public void signup(AuthRequestDto authRequestDto) {
+        try {
+            loadUserByUsername(authRequestDto.getUsername());
+            throw new IllegalArgumentException("Username already exists");
+        } catch (UsernameNotFoundException e) {
+            String encodedPassword = passwordEncoder.encode(authRequestDto.getPassword());
+            AuthUser authUser = AuthUser.builder()
+                    .username(authRequestDto.getUsername())
+                    .password(encodedPassword)
+                    .authority(Authority.CUSTOMER)
+                    .build();
+            authUserRepository.save(authUser);
+        }
     }
 
     @Override
     public String login(AuthRequestDto authRequestDto) {
-        AuthUser authUser = authUserRepository.findByUsername(authRequestDto.getUsername())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid username or password"));
-
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        authRequestDto.getUsername(),
-                        authRequestDto.getPassword()
-                )
-        );
-        return jwtService.generateToken(authUser.getUsername());
+        try {
+            AuthUser authUser = loadUserByUsername(authRequestDto.getUsername());
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            authRequestDto.getUsername(),
+                            authRequestDto.getPassword()
+                    )
+            );
+            return jwtService.generateToken(authUser);
+        } catch (AuthenticationException e) {
+            throw new IllegalArgumentException("Invalid username or password");
+        }
     }
 }

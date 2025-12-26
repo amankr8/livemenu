@@ -4,17 +4,12 @@ import com.flykraft.livemenu.model.Auditable;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.Filter;
-import org.hibernate.annotations.FilterDef;
-import org.hibernate.annotations.ParamDef;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-@FilterDef(name = "kitchenFilter", parameters = @ParamDef(name = "kitchenId", type = Long.class))
-@Filter(name = "kitchenFilter", condition = "k_id = :kitchenId")
 @Entity
 @Table(name = "kitchen_owners")
 public class KitchenOwner extends Auditable {
@@ -28,7 +23,7 @@ public class KitchenOwner extends Auditable {
     @JoinColumn(name = "au_id", nullable = false)
     private AuthUser authUser;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "k_id", nullable = false)
     private Kitchen kitchen;
 }

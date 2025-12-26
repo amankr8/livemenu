@@ -1,5 +1,9 @@
 package com.flykraft.livemenu.service.impl;
 
+import com.flykraft.livemenu.entity.AuthUser;
+import com.flykraft.livemenu.entity.KitchenOwner;
+import com.flykraft.livemenu.model.Authority;
+import com.flykraft.livemenu.repository.KitchenOwnerRepository;
 import com.flykraft.livemenu.service.JwtService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -19,6 +23,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Service
 public class JwtServiceImpl implements JwtService {
+    private final KitchenOwnerRepository kitchenOwnerRepository;
 
     @Value("${spring.security.jwt.secret}")
     private String JWT_SECRET_KEY;
@@ -26,9 +31,16 @@ public class JwtServiceImpl implements JwtService {
     @Value("${spring.security.jwt.expiration}")
     private Long JWT_EXPIRATION;
 
+    private final String KITCHEN_ID_CLAIM = "kitchenId";
+
     @Override
     public String extractUsername(String token) {
         return extractAllClaims(token).getSubject();
+    }
+
+    @Override
+    public Long extractKitchenId(String token) {
+        return extractAllClaims(token).get(KITCHEN_ID_CLAIM, Long.class);
     }
 
     private Claims extractAllClaims(String token) {
@@ -60,8 +72,16 @@ public class JwtServiceImpl implements JwtService {
     }
 
     @Override
-    public String generateToken(String username) {
-        return generateToken(new HashMap<>(), username);
+    public String generateToken(AuthUser authUser) {
+        Map<String, Object> claims = new HashMap<>();
+
+        if (authUser.getAuthorities().contains(Authority.KITCHEN_OWNER)) {
+            KitchenOwner kitchenOwner = kitchenOwnerRepository.findByAuthUser(authUser)
+                    .orElseThrow(() -> new IllegalStateException("Kitchen owner not found for user: " + authUser.getUsername()));
+            claims.put(KITCHEN_ID_CLAIM, kitchenOwner.getKitchen().getId());
+        }
+
+        return generateToken(claims, authUser.getUsername());
     }
 
     @Override

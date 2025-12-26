@@ -1,5 +1,6 @@
 package com.flykraft.livemenu.util;
 
+import com.flykraft.livemenu.config.TenantContext;
 import com.flykraft.livemenu.service.JwtService;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
@@ -36,6 +37,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         try {
             String jwtToken = authHeader.substring(7);
             String username = jwtService.extractUsername(jwtToken);
+
+            Long kitchenIdFromJwt = jwtService.extractKitchenId(jwtToken);
+            if (kitchenIdFromJwt != null) {
+                TenantContext.setKitchenId(kitchenIdFromJwt);
+            }
 
             // Validate the token and authenticate the user
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {

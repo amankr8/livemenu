@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -36,8 +37,8 @@ public class AuthUser implements UserDetails {
     private Authority authority;
 
     @Override
-    public @NonNull Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(authority);
+    public @NonNull Set<Authority> getAuthorities() {
+        return Set.of(authority);
     }
 
     @Override
