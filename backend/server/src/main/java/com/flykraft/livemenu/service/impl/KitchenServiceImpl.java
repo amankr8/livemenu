@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 public class KitchenServiceImpl implements KitchenService {
-
     private final KitchenRepository kitchenRepository;
 
     @Override
@@ -24,21 +23,25 @@ public class KitchenServiceImpl implements KitchenService {
     }
 
     @Override
-    public Kitchen loadCurrentKitchen() {
-        Long currentKitchenId = TenantContext.getKitchenId();
-        return loadKitchenById(currentKitchenId);
+    public Kitchen loadKitchen() {
+        return loadKitchenById(TenantContext.getKitchenId());
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @Transactional
     @Override
-    public Kitchen addKitchen(KitchenRequestDto kitchenRequestDto) {
+    public Kitchen registerKitchen(KitchenRequestDto kitchenRequestDto) {
+        String subdomain = kitchenRequestDto.getSubdomain().toLowerCase().trim();
+        if (kitchenRepository.findBySubdomain(subdomain).isPresent()) {
+            throw new IllegalArgumentException("Subdomain " + subdomain + " is already taken");
+        }
+
         Kitchen kitchen = Kitchen.builder()
                 .name(kitchenRequestDto.getName())
                 .tagline(kitchenRequestDto.getTagline())
                 .address(kitchenRequestDto.getAddress())
                 .whatsapp(kitchenRequestDto.getWhatsapp())
-                .subdomain(kitchenRequestDto.getSubdomain())
+                .subdomain(subdomain)
                 .build();
         return kitchenRepository.save(kitchen);
     }
