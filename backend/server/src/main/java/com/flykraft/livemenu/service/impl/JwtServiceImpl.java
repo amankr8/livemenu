@@ -73,15 +73,13 @@ public class JwtServiceImpl implements JwtService {
 
     @Override
     public String generateToken(AuthUser authUser) {
-        Map<String, Object> claims = new HashMap<>();
-
+        Map<String, Object> extraClaims = new HashMap<>();
         if (authUser.getAuthorities().contains(Authority.KITCHEN_OWNER)) {
-            KitchenOwner kitchenOwner = kitchenOwnerRepository.findByAuthUser(authUser)
-                    .orElseThrow(() -> new IllegalStateException("Kitchen owner not found for user: " + authUser.getUsername()));
-            claims.put(KITCHEN_ID_CLAIM, kitchenOwner.getKitchen().getId());
+            kitchenOwnerRepository.findByAuthUser(authUser).ifPresent(ko ->
+                    extraClaims.put(KITCHEN_ID_CLAIM, ko.getId())
+            );
         }
-
-        return generateToken(claims, authUser.getUsername());
+        return generateToken(extraClaims, authUser.getUsername());
     }
 
     @Override
