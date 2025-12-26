@@ -58,7 +58,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 }
             }
 
-            filterChain.doFilter(request, response);
+            try {
+                filterChain.doFilter(request, response);
+            } finally {
+                TenantContext.clear();
+            }
         } catch (ExpiredJwtException e) {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             response.getWriter().write("Token has expired. Please sign in again.");
