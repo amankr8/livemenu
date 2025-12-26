@@ -24,14 +24,14 @@ public class AuthUser extends Auditable implements UserDetails {
     @Column(name = "au_id")
     private Long id;
 
-    @Column(name = "au_username")
+    @Column(name = "au_username", unique = true, nullable = false)
     private String username;
 
     @Column(name = "au_password")
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "au_authority")
+    @Column(name = "au_authority", nullable = false)
     private Authority authority;
 
     @Override

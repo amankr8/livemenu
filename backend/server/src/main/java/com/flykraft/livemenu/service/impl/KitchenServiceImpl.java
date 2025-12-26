@@ -7,6 +7,7 @@ import com.flykraft.livemenu.entity.AuthUser;
 import com.flykraft.livemenu.entity.Kitchen;
 import com.flykraft.livemenu.entity.KitchenOwner;
 import com.flykraft.livemenu.exception.ResourceNotFoundException;
+import com.flykraft.livemenu.model.KitchenRole;
 import com.flykraft.livemenu.repository.KitchenOwnerRepository;
 import com.flykraft.livemenu.repository.KitchenRepository;
 import com.flykraft.livemenu.service.AuthService;
@@ -43,6 +44,7 @@ public class KitchenServiceImpl implements KitchenService {
         KitchenOwner kitchenOwner = KitchenOwner.builder()
                 .authUser(authUser)
                 .kitchen(kitchen)
+                .role(KitchenRole.ADMIN)
                 .build();
         kitchenOwnerRepository.save(kitchenOwner);
         return kitchen;

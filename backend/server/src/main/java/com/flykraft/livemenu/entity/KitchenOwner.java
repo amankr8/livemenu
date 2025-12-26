@@ -1,6 +1,7 @@
 package com.flykraft.livemenu.entity;
 
 import com.flykraft.livemenu.model.Auditable;
+import com.flykraft.livemenu.model.KitchenRole;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -23,7 +24,11 @@ public class KitchenOwner extends Auditable {
     @JoinColumn(name = "au_id", nullable = false)
     private AuthUser authUser;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "k_id", nullable = false)
     private Kitchen kitchen;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "ko_role", nullable = false)
+    private KitchenRole role;
 }

@@ -3,7 +3,7 @@ spring:
     name: livemenu
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/livemenu_db
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/livemenu_db}
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
@@ -38,4 +38,4 @@ logging:
               BasicBinder: TRACE
 
 cloudinary:
-  url: cloudinary://${CN_KEY}:${CN_SECRET}@${CN_NAME}
+  url: ${CN_URL:cloudinary://api_key:api_secret@cloud_name}
