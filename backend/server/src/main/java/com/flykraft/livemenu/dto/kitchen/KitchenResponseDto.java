@@ -12,7 +12,6 @@ public class KitchenResponseDto {
     private Long id;
     private String name;
     private String tagline;
-    private String subdomain;
     private String address;
     private String whatsapp;
 }

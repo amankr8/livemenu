@@ -45,7 +45,6 @@ public class Kitchen extends Auditable {
                 .id(this.id)
                 .name(this.name)
                 .address(this.address)
-                .subdomain(this.subdomain)
                 .whatsapp(this.whatsapp)
                 .build();
     }

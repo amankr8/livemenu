@@ -1,6 +1,7 @@
 package com.flykraft.livemenu.controller;
 
 import com.flykraft.livemenu.dto.kitchen.KitchenRequestDto;
+import com.flykraft.livemenu.dto.kitchen.RegisterKitchenDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +12,7 @@ public interface KitchenController {
     ResponseEntity<?> getKitchen();
 
     @PostMapping
-    ResponseEntity<?> registerKitchen(@RequestBody KitchenRequestDto kitchenRequestDto);
+    ResponseEntity<?> registerKitchen(@RequestBody RegisterKitchenDto registerKitchenDto);
 
     @PutMapping("/{kitchenId}")
     ResponseEntity<?> updateKitchenDetails(@PathVariable Long kitchenId, @RequestBody KitchenRequestDto kitchenRequestDto);

@@ -2,6 +2,7 @@ package com.flykraft.livemenu.controller.impl;
 
 import com.flykraft.livemenu.controller.KitchenController;
 import com.flykraft.livemenu.dto.kitchen.KitchenRequestDto;
+import com.flykraft.livemenu.dto.kitchen.RegisterKitchenDto;
 import com.flykraft.livemenu.entity.Kitchen;
 import com.flykraft.livemenu.service.KitchenService;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +20,8 @@ public class KitchenControllerImpl implements KitchenController {
     }
 
     @Override
-    public ResponseEntity<?> registerKitchen(KitchenRequestDto kitchenRequestDto) {
-        return ResponseEntity.ok().body(kitchenService.registerKitchen(kitchenRequestDto).toResponseDto());
+    public ResponseEntity<?> registerKitchen(RegisterKitchenDto registerKitchenDto) {
+        return ResponseEntity.ok().body(kitchenService.registerKitchen(registerKitchenDto).toResponseDto());
     }
 
     @Override

@@ -34,14 +34,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/menus/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/v1/menus/**").hasAuthority(Authority.KITCHEN_OWNER.getAuthority())
-                        .requestMatchers(HttpMethod.PUT, "/api/v1/menus/**").hasAuthority(Authority.KITCHEN_OWNER.getAuthority())
-                        .requestMatchers(HttpMethod.PATCH, "/api/v1/menus/**").hasAuthority(Authority.KITCHEN_OWNER.getAuthority())
-                        .requestMatchers(HttpMethod.DELETE, "/api/v1/menus/**").hasAuthority(Authority.KITCHEN_OWNER.getAuthority())
+                        .requestMatchers(HttpMethod.GET, "/api/v1/kitchens/**").permitAll()
                         .requestMatchers("/api/**").authenticated()
                         .anyRequest().permitAll()
                 )
-                .formLogin(Customizer.withDefaults())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )

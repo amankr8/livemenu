@@ -49,7 +49,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void signup(AuthRequestDto authRequestDto) {
+    public AuthUser signup(AuthRequestDto authRequestDto) {
         try {
             loadUserByUsername(authRequestDto.getUsername());
             throw new IllegalArgumentException("Username already exists");
@@ -60,7 +60,7 @@ public class AuthServiceImpl implements AuthService {
                     .password(encodedPassword)
                     .authority(Authority.CUSTOMER)
                     .build();
-            authUserRepository.save(authUser);
+            return authUserRepository.save(authUser);
         }
     }
 

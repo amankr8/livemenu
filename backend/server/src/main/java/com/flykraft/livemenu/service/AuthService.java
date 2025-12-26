@@ -7,7 +7,7 @@ public interface AuthService {
 
     AuthUser loadUserByUsername(String username);
 
-    void signup(AuthRequestDto authRequestDto);
+    AuthUser signup(AuthRequestDto authRequestDto);
 
     String login(AuthRequestDto authRequestDto);
 }
