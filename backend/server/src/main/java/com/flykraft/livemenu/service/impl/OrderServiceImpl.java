@@ -4,6 +4,7 @@ import com.flykraft.livemenu.config.TenantContext;
 import com.flykraft.livemenu.dto.order.OrderRequestDto;
 import com.flykraft.livemenu.entity.*;
 import com.flykraft.livemenu.exception.ResourceNotFoundException;
+import com.flykraft.livemenu.model.Authority;
 import com.flykraft.livemenu.model.OrderStatus;
 import com.flykraft.livemenu.repository.CustomerRepository;
 import com.flykraft.livemenu.repository.OrderItemRepository;
@@ -36,21 +37,33 @@ public class OrderServiceImpl implements OrderService {
                 .orElseThrow(() -> new ResourceNotFoundException("Order not found with id: " + orderId));
     }
 
-    @PreAuthorize("hasAuthority('CUSTOMER')")
     @Transactional
     @Override
     public Order createOrder(OrderRequestDto orderRequestDto) {
-        Customer customer = customerRepository.findByAuthUser(AuthUtil.getLoggedInUser())
-                .orElseThrow(() -> new ResourceNotFoundException("Customer not found with auth user"));
         Kitchen kitchen = kitchenService.loadKitchenById(TenantContext.getKitchenId());
 
         Order order = Order.builder()
                 .kitchen(kitchen)
-                .customer(customer)
                 .status(OrderStatus.PENDING)
                 .totalPrice(BigDecimal.ZERO)
                 .build();
         order = orderRepository.save(order);
+
+        AuthUser authUser = AuthUtil.getLoggedInUser();
+        if (authUser != null && authUser.getAuthority().equals(Authority.CUSTOMER)) {
+            Customer customer = customerRepository.findByAuthUser(authUser)
+                    .orElseThrow(() -> new ResourceNotFoundException("Customer record is missing for user id: " + authUser.getId()));
+            order.setCustomer(customer);
+        } else {
+            if (orderRequestDto.getGuestName() == null ||
+                orderRequestDto.getGuestPhone() == null ||
+                orderRequestDto.getGuestAddress() == null) {
+                throw new IllegalArgumentException("Guest details are required for placing an order as a guest.");
+            }
+            order.setGuestName(orderRequestDto.getGuestName());
+            order.setGuestPhone(orderRequestDto.getGuestPhone());
+            order.setGuestAddress(orderRequestDto.getGuestAddress());
+        }
 
         BigDecimal totalPrice = BigDecimal.ZERO;
         List<OrderItem> orderItems = new ArrayList<>();

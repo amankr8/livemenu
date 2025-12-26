@@ -8,5 +8,8 @@ import java.util.List;
 @Getter
 @Setter
 public class OrderRequestDto {
+    private String guestName;
+    private String guestPhone;
+    private String guestAddress;
     private List<OrderItemRequestDto> orderItems;
 }

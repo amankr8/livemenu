@@ -44,4 +44,13 @@ public class Order extends Auditable {
 
     @Column(name = "o_total_price")
     private BigDecimal totalPrice;
+
+    @Column(name = "o_guest_name")
+    private String guestName;
+
+    @Column(name = "o_guest_phone")
+    private String guestPhone;
+
+    @Column(name = "o_guest_address")
+    private String guestAddress;
 }
