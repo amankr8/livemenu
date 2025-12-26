@@ -6,7 +6,9 @@ import com.flykraft.livemenu.entity.Kitchen;
 import com.flykraft.livemenu.exception.ResourceNotFoundException;
 import com.flykraft.livemenu.repository.KitchenRepository;
 import com.flykraft.livemenu.service.KitchenService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -16,17 +18,19 @@ public class KitchenServiceImpl implements KitchenService {
     private final KitchenRepository kitchenRepository;
 
     @Override
-    public Kitchen getCurrentKitchen() {
-        Long currentKitchenId = TenantContext.getKitchenId();
-        return getKitchenById(currentKitchenId);
-    }
-
-    @Override
-    public Kitchen getKitchenById(Long kitchenId) {
+    public Kitchen loadKitchenById(Long kitchenId) {
         return kitchenRepository.findById(kitchenId)
                 .orElseThrow(() -> new ResourceNotFoundException("Kitchen with id " + kitchenId + " not found"));
     }
 
+    @Override
+    public Kitchen loadCurrentKitchen() {
+        Long currentKitchenId = TenantContext.getKitchenId();
+        return loadKitchenById(currentKitchenId);
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @Transactional
     @Override
     public Kitchen addKitchen(KitchenRequestDto kitchenRequestDto) {
         Kitchen kitchen = Kitchen.builder()
@@ -39,9 +43,11 @@ public class KitchenServiceImpl implements KitchenService {
         return kitchenRepository.save(kitchen);
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'KITCHEN_OWNER')")
+    @Transactional
     @Override
     public Kitchen updateKitchenDetails(Long kitchenId, KitchenRequestDto kitchenRequestDto) {
-        Kitchen selectedKitchen = getKitchenById(kitchenId);
+        Kitchen selectedKitchen = loadKitchenById(kitchenId);
         selectedKitchen.setName(kitchenRequestDto.getName());
         selectedKitchen.setTagline(kitchenRequestDto.getTagline());
         selectedKitchen.setAddress(kitchenRequestDto.getAddress());

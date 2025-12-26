@@ -32,12 +32,12 @@ public class MenuServiceImpl implements MenuService {
     private final CloudinaryService cloudinaryService;
 
     @Override
-    public List<MenuItem> getAllMenuItems() {
+    public List<MenuItem> loadAllMenuItems() {
         return menuItemRepository.findAll();
     }
 
     @Override
-    public MenuItem getMenuItemById(Long menuItemId) {
+    public MenuItem loadMenuItemById(Long menuItemId) {
         return menuItemRepository.findById(menuItemId)
                 .orElseThrow(() -> new ResourceNotFoundException("Menu item with id " + menuItemId + " not found"));
     }
@@ -47,7 +47,7 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public MenuItem addMenuItem(MenuItemRequestDto menuItemRequestDto) {
         Long currentKitchenId = TenantContext.getKitchenId();
-        Kitchen kitchen = kitchenService.getKitchenById(currentKitchenId);
+        Kitchen kitchen = kitchenService.loadKitchenById(currentKitchenId);
 
         DishImage dishImage = saveImage(menuItemRequestDto.getImage(), getFolderPathForMenuItem(kitchen.getId()));
         MenuItem menuItem = MenuItem.builder()
@@ -82,7 +82,7 @@ public class MenuServiceImpl implements MenuService {
     @Transactional
     @Override
     public MenuItem updateMenuItem(Long menuItemId, MenuItemRequestDto menuItemRequestDto) {
-        MenuItem selectedMenuItem = getMenuItemById(menuItemId);
+        MenuItem selectedMenuItem = loadMenuItemById(menuItemId);
         if (menuItemRequestDto.getImage() != null) {
             DishImage existingImage = selectedMenuItem.getDishImage();
             String folderPath = getFolderPathForMenuItem(selectedMenuItem.getKitchen().getId());
@@ -108,9 +108,10 @@ public class MenuServiceImpl implements MenuService {
         }
     }
 
+    @PreAuthorize("hasAuthority('KITCHEN_OWNER')")
     @Override
     public MenuItem toggleInStockForMenuItem(Long menuItemId) {
-        MenuItem menuItem = getMenuItemById(menuItemId);
+        MenuItem menuItem = loadMenuItemById(menuItemId);
         menuItem.setInStock(!menuItem.getInStock());
         return menuItemRepository.save(menuItem);
     }

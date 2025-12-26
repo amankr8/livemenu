@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -21,19 +22,21 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.List;
 
 @RequiredArgsConstructor
+@EnableMethodSecurity
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
     private final JwtAuthFilter jwtAuthFilter;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) {
         http.cors(cors -> cors.configurationSource(corsConfigurationSource())).csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/menus/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/menus/**").hasAuthority(Authority.KITCHEN_OWNER.getAuthority())
                         .requestMatchers(HttpMethod.PUT, "/api/v1/menus/**").hasAuthority(Authority.KITCHEN_OWNER.getAuthority())
+                        .requestMatchers(HttpMethod.PATCH, "/api/v1/menus/**").hasAuthority(Authority.KITCHEN_OWNER.getAuthority())
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/menus/**").hasAuthority(Authority.KITCHEN_OWNER.getAuthority())
                         .requestMatchers("/api/**").authenticated()
                         .anyRequest().permitAll()

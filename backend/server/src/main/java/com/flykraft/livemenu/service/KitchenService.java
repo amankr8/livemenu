@@ -5,9 +5,9 @@ import com.flykraft.livemenu.entity.Kitchen;
 
 public interface KitchenService {
 
-    Kitchen getCurrentKitchen();
+    Kitchen loadCurrentKitchen();
 
-    Kitchen getKitchenById(Long kitchenId);
+    Kitchen loadKitchenById(Long kitchenId);
 
     Kitchen addKitchen(KitchenRequestDto kitchenRequestDto);
 

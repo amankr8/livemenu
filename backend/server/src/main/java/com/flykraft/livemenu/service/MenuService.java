@@ -6,9 +6,9 @@ import com.flykraft.livemenu.entity.MenuItem;
 import java.util.List;
 
 public interface MenuService {
-    List<MenuItem> getAllMenuItems();
+    List<MenuItem> loadAllMenuItems();
 
-    MenuItem getMenuItemById(Long menuItemId);
+    MenuItem loadMenuItemById(Long menuItemId);
 
     MenuItem addMenuItem(MenuItemRequestDto menuItemRequestDto);
 

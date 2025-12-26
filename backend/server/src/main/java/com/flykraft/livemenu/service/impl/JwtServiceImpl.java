@@ -74,7 +74,7 @@ public class JwtServiceImpl implements JwtService {
     @Override
     public String generateToken(AuthUser authUser) {
         Map<String, Object> extraClaims = new HashMap<>();
-        if (authUser.getAuthorities().contains(Authority.KITCHEN_OWNER)) {
+        if (authUser.getAuthority().equals(Authority.KITCHEN_OWNER)) {
             kitchenOwnerRepository.findByAuthUser(authUser).ifPresent(ko ->
                     extraClaims.put(KITCHEN_ID_CLAIM, ko.getId())
             );

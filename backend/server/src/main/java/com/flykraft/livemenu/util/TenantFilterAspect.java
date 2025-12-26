@@ -16,6 +16,8 @@ public class TenantFilterAspect {
 
     @Before("execution(* com.flykraft.livemenu.service..*(..))")
     public void enableFilter() {
+        if (AuthUtil.isAdminLogin()) return;
+
         Long kitchenId = TenantContext.getKitchenId();
         if (kitchenId != null) {
             Session session = entityManager.unwrap(Session.class);

@@ -15,7 +15,7 @@ public class KitchenControllerImpl implements KitchenController {
 
     @Override
     public ResponseEntity<Kitchen> getCurrentKitchen() {
-        return ResponseEntity.ok().body(kitchenService.getCurrentKitchen());
+        return ResponseEntity.ok().body(kitchenService.loadCurrentKitchen());
     }
 
     @Override

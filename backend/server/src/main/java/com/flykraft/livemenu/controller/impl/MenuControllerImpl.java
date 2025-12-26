@@ -18,7 +18,7 @@ public class MenuControllerImpl implements MenuController {
 
     @Override
     public ResponseEntity<?> getMenu() {
-        List<MenuItemResponseDto> menuItems = menuService.getAllMenuItems()
+        List<MenuItemResponseDto> menuItems = menuService.loadAllMenuItems()
                 .stream().map(MenuItem::toResponseDto).toList();
         return ResponseEntity.ok().body(menuItems);
     }
