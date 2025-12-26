@@ -116,6 +116,7 @@ public class MenuServiceImpl implements MenuService {
         return menuItemRepository.save(menuItem);
     }
 
+    @PreAuthorize("hasAuthority('KITCHEN_OWNER')")
     @Transactional
     @Override
     public void deleteMenuItemById(Long menuItemId) {
