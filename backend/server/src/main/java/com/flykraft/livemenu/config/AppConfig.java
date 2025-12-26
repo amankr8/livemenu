@@ -15,7 +15,6 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 @Configuration
 public class AppConfig {
-
     private final AuthUserRepository authUserRepository;
 
     @Bean

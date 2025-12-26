@@ -55,9 +55,7 @@ public class OrderServiceImpl implements OrderService {
                     .orElseThrow(() -> new ResourceNotFoundException("Customer record is missing for user id: " + authUser.getId()));
             order.setCustomer(customer);
         } else {
-            if (orderRequestDto.getGuestName() == null ||
-                orderRequestDto.getGuestPhone() == null ||
-                orderRequestDto.getGuestAddress() == null) {
+            if (orderRequestDto.getGuestName() == null || orderRequestDto.getGuestPhone() == null || orderRequestDto.getGuestAddress() == null) {
                 throw new IllegalArgumentException("Guest details are required for placing an order as a guest.");
             }
             order.setGuestName(orderRequestDto.getGuestName());
