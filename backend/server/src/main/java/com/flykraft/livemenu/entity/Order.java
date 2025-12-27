@@ -37,7 +37,7 @@ public class Order extends Auditable {
     private Kitchen kitchen;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "c_id")
+    @JoinColumn(name = "u_id")
     private User user;
 
     @Enumerated(EnumType.STRING)

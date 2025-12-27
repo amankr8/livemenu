@@ -10,6 +10,4 @@ import lombok.Setter;
 public class UserResDto {
     private Long id;
     private String name;
-    private String phone;
-    private String address;
 }
