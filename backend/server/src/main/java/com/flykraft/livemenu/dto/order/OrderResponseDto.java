@@ -1,6 +1,6 @@
 package com.flykraft.livemenu.dto.order;
 
-import com.flykraft.livemenu.dto.customer.CustomerResDto;
+import com.flykraft.livemenu.dto.customer.UserResDto;
 import com.flykraft.livemenu.model.OrderStatus;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,6 +17,6 @@ public class OrderResponseDto {
     private Long kitchenId;
     private OrderStatus status;
     private BigDecimal totalPrice;
-    private CustomerResDto customerDetails;
+    private UserResDto customerDetails;
     private List<OrderItemResponseDto> orderItems;
 }

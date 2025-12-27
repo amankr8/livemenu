@@ -9,7 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 public enum Authority implements GrantedAuthority {
     ADMIN(0, "ADMIN"),
     KITCHEN_OWNER(1, "KITCHEN_OWNER"),
-    CUSTOMER(2, "CUSTOMER");
+    USER(2, "USER");
 
     @Getter
     private final Integer id;

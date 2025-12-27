@@ -1,17 +1,18 @@
 package com.flykraft.livemenu.service.impl;
 
 import com.flykraft.livemenu.config.TenantContext;
-import com.flykraft.livemenu.dto.customer.CustomerReqDto;
+import com.flykraft.livemenu.dto.customer.UserReqDto;
 import com.flykraft.livemenu.dto.order.OrderRequestDto;
 import com.flykraft.livemenu.entity.*;
 import com.flykraft.livemenu.exception.ResourceNotFoundException;
 import com.flykraft.livemenu.model.OrderStatus;
+import com.flykraft.livemenu.repository.UserRepository;
 import com.flykraft.livemenu.repository.OrderItemRepository;
 import com.flykraft.livemenu.repository.OrderRepository;
-import com.flykraft.livemenu.service.CustomerService;
 import com.flykraft.livemenu.service.KitchenService;
 import com.flykraft.livemenu.service.MenuService;
 import com.flykraft.livemenu.service.OrderService;
+import com.flykraft.livemenu.util.AuthUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
-    private final CustomerService customerService;
+    private final UserRepository userRepository;
     private final KitchenService kitchenService;
     private final MenuService menuService;
 
@@ -49,24 +50,25 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order createOrder(OrderRequestDto orderRequestDto) {
         Kitchen kitchen = kitchenService.loadKitchenById(TenantContext.getKitchenId());
+        UserReqDto userReqDto = orderRequestDto.getCustomerDetails();
+        User user = userRepository.findByAuthUser(AuthUtil.getLoggedInUser()).orElseGet(() ->
+                userRepository.save(User.builder()
+                        .authUser(AuthUtil.getLoggedInUser())
+                        .name(userReqDto.getName())
+                        .phone(userReqDto.getPhone())
+                        .address(userReqDto.getAddress())
+                        .build()
+                )
+        );
+
 
         Order order = Order.builder()
                 .kitchen(kitchen)
+                .user(user)
                 .status(OrderStatus.PENDING)
                 .totalPrice(BigDecimal.ZERO)
                 .build();
         order = orderRepository.save(order);
-
-        CustomerReqDto customerReqDto = orderRequestDto.getCustomerDetails();
-        try {
-            //TODO: Add logic to verify customer by phone OTP
-            Customer customer = customerService.loadCustomerByPhone(customerReqDto.getPhone());
-            customer = customerService.updateCustomerDetails(customer.getId(), customerReqDto);
-            order.setCustomer(customer);
-        } catch (ResourceNotFoundException e) {
-            Customer customer = customerService.registerCustomer(customerReqDto);
-            order.setCustomer(customer);
-        }
 
         BigDecimal totalPrice = BigDecimal.ZERO;
         List<OrderItem> orderItems = new ArrayList<>();

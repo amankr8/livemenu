@@ -38,7 +38,7 @@ public class Order extends Auditable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "c_id")
-    private Customer customer;
+    private User user;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "o_status", nullable = false)
@@ -54,7 +54,7 @@ public class Order extends Auditable {
         return OrderResponseDto.builder()
                 .id(this.id)
                 .kitchenId(this.kitchen.getId())
-                .customerDetails(this.customer.toResponseDto())
+                .customerDetails(this.user.toResponseDto())
                 .status(this.status)
                 .totalPrice(this.totalPrice)
                 .orderItems(this.orderItems.stream()

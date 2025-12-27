@@ -1,6 +1,6 @@
 package com.flykraft.livemenu.entity;
 
-import com.flykraft.livemenu.dto.customer.CustomerResDto;
+import com.flykraft.livemenu.dto.customer.UserResDto;
 import com.flykraft.livemenu.model.Auditable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,13 +15,17 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "customers")
-public class Customer extends Auditable {
+@Table(name = "users")
+public class User extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "c_id")
     private Long id;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "au_id", nullable = false, unique = true)
+    private AuthUser authUser;
 
     @Column(name = "c_name")
     private String name;
@@ -32,16 +36,12 @@ public class Customer extends Auditable {
     @Column(name = "c_address")
     private String address;
 
-    @Column(name = "c_verified", nullable = false)
-    private Boolean verified;
-
-    public CustomerResDto toResponseDto() {
-        return CustomerResDto.builder()
+    public UserResDto toResponseDto() {
+        return UserResDto.builder()
                 .id(this.id)
                 .name(this.name)
                 .phone(this.phone)
                 .address(this.address)
-                .verified(this.verified)
                 .build();
     }
 }

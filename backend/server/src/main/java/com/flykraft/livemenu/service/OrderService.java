@@ -13,6 +13,7 @@ public interface OrderService {
 
     Order loadOrderById(Long orderId);
 
+    @PreAuthorize("hasAuthority('USER')")
     Order createOrder(OrderRequestDto orderRequestDto);
 
     @PreAuthorize("hasAuthority('KITCHEN_OWNER')")

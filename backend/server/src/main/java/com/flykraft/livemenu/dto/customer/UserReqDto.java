@@ -1,16 +1,12 @@
 package com.flykraft.livemenu.dto.customer;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@Builder
-public class CustomerResDto {
-    private Long id;
+public class UserReqDto {
     private String name;
     private String phone;
     private String address;
-    private Boolean verified;
 }
