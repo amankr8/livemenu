@@ -8,6 +8,7 @@ import com.flykraft.livemenu.service.JwtService;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
+import com.google.firebase.auth.UserRecord;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -69,7 +70,11 @@ public class AuthServiceImpl implements AuthService {
     public String firebaseLogin(String firebaseToken) {
         try {
             FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(firebaseToken);
-            String phoneNumber = decodedToken.getClaims().get("phone_number").toString();
+            UserRecord userRecord = FirebaseAuth.getInstance().getUser(decodedToken.getUid());
+            String phoneNumber = userRecord.getPhoneNumber();
+            if (phoneNumber == null || phoneNumber.isEmpty()) {
+                throw new IllegalArgumentException("Phone number not found in Firebase user record");
+            }
 
             AuthUser authUser = authUserRepository.findByUsername(phoneNumber)
                 .orElseGet(() -> {
