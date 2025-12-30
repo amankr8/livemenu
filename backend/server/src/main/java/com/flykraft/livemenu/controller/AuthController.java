@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/api/v1/auth")
 public interface AuthController {
 
-    @PostMapping("/user-login")
-    ResponseEntity<?> userLogin(@RequestParam String firebaseToken);
+    @PostMapping("/phone-login")
+    ResponseEntity<?> phoneLogin(@RequestParam String firebaseToken);
 
-    @PostMapping("/kitchen-login")
-    ResponseEntity<?> kitchenLogin(@RequestBody AuthRequestDto authRequestDto);
+    @PostMapping("/login")
+    ResponseEntity<?> login(@RequestBody AuthRequestDto authRequestDto);
 }

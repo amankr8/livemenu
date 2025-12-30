@@ -9,12 +9,19 @@ public class AuthUtil {
     public static AuthUser getLoggedInUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
-            throw new IllegalStateException("User not logged in");
+            throw new IllegalStateException("No authenticated user found");
+        } else if (authentication.getPrincipal() instanceof AuthUser authUser) {
+            return authUser;
+        } else {
+            throw new SecurityException("AuthUser not found in security context");
         }
-        return (AuthUser) authentication.getPrincipal();
     }
 
     public static boolean isAdminLogin() {
-        return getLoggedInUser().getAuthority().equals(Authority.ADMIN);
+        try {
+            return getLoggedInUser().getAuthority().equals(Authority.ADMIN);
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

@@ -15,13 +15,13 @@ public class AuthControllerImpl implements AuthController {
     private final AuthService authService;
 
     @Override
-    public ResponseEntity<?> userLogin(String firebaseToken) {
+    public ResponseEntity<?> phoneLogin(String firebaseToken) {
         String token = authService.firebaseLogin(firebaseToken);
         return ResponseEntity.ok(AuthResponseDto.builder().token(token).build());
     }
 
     @Override
-    public ResponseEntity<?> kitchenLogin(AuthRequestDto authRequestDto) {
+    public ResponseEntity<?> login(AuthRequestDto authRequestDto) {
         String token = authService.login(authRequestDto.getUsername(), authRequestDto.getPassword());
         return ResponseEntity.ok(AuthResponseDto.builder().token(token).build());
     }

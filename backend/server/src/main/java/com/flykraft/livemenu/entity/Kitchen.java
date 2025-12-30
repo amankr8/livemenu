@@ -55,6 +55,7 @@ public class Kitchen extends Auditable {
         return KitchenResDto.builder()
                 .id(this.id)
                 .name(this.name)
+                .tagline(this.tagline)
                 .address(this.address)
                 .whatsapp(this.whatsapp)
                 .build();

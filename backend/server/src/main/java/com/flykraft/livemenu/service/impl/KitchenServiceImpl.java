@@ -41,16 +41,16 @@ public class KitchenServiceImpl implements KitchenService {
     public Kitchen registerKitchen(RegisterKitchenDto registerKitchenDto) {
         AuthRequestDto authRequestDto = registerKitchenDto.getCredentials();
         AuthUser authUser = authService.register(
-                authRequestDto.getUsername(),
-                authRequestDto.getPassword(),
-                Authority.KITCHEN_OWNER
+            authRequestDto.getUsername(),
+            authRequestDto.getPassword(),
+            Authority.KITCHEN_OWNER
         );
         Kitchen kitchen = addKitchen(registerKitchenDto.getKitchenDetails());
         KitchenOwner kitchenOwner = KitchenOwner.builder()
-                .authUser(authUser)
-                .kitchen(kitchen)
-                .role(KitchenRole.ADMIN)
-                .build();
+            .authUser(authUser)
+            .kitchen(kitchen)
+            .role(KitchenRole.ADMIN)
+            .build();
         kitchenOwnerRepository.save(kitchenOwner);
         return kitchen;
     }
