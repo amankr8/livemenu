@@ -13,7 +13,6 @@ export class MenuComponent {
   menuItems: MenuItem[] = [];
   isLoading: boolean = true;
   skeletons = Array(6);
-  subdomain: string = 'taco-street';
   errorMessage: string = '';
 
   constructor(private menuService: MenuService) {}
@@ -27,7 +26,7 @@ export class MenuComponent {
   }
 
   fetchMenuItems(): void {
-    this.menuService.getMenuItems(this.subdomain).subscribe({
+    this.menuService.getMenuItems().subscribe({
       next: (data) => {
         this.menuItems = data;
         this.isLoading = false;

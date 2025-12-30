@@ -11,8 +11,8 @@ export class MenuService {
 
   constructor(private http: HttpClient) {}
 
-  getMenuItems(subdomain: string): Observable<MenuItem[]> {
-    return this.http.get<MenuItem[]>(this.apiUrl + `/${subdomain}`);
+  getMenuItems(): Observable<MenuItem[]> {
+    return this.http.get<MenuItem[]>(this.apiUrl);
   }
 
   getMenuItemById(id: number): Observable<MenuItem> {

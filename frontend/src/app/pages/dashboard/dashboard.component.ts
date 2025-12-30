@@ -13,7 +13,6 @@ export class DashboardComponent {
   menuItems: MenuItem[] = [];
   filteredMenuItems: MenuItem[] = [];
   isLoading: boolean = true;
-  subdomain: string = 'taco-street';
   errorMessage: string = '';
 
   // Modal state
@@ -47,7 +46,7 @@ export class DashboardComponent {
   // Load all menu items
   loadMenuItems(): void {
     this.isLoading = true;
-    this.menuService.getMenuItems(this.subdomain).subscribe({
+    this.menuService.getMenuItems().subscribe({
       next: (data) => {
         this.menuItems = data;
         this.filteredMenuItems = data;
