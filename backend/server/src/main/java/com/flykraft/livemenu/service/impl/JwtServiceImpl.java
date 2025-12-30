@@ -1,7 +1,6 @@
 package com.flykraft.livemenu.service.impl;
 
 import com.flykraft.livemenu.entity.AuthUser;
-import com.flykraft.livemenu.entity.KitchenOwner;
 import com.flykraft.livemenu.model.Authority;
 import com.flykraft.livemenu.repository.KitchenOwnerRepository;
 import com.flykraft.livemenu.service.JwtService;
@@ -85,11 +84,6 @@ public class JwtServiceImpl implements JwtService {
     @Override
     public String generateToken(Map<String, Object> extraClaims, String username) {
         return buildToken(extraClaims, username, JWT_EXPIRATION);
-    }
-
-    @Override
-    public Long getExpirationTime() {
-        return JWT_EXPIRATION;
     }
 
     @Override
