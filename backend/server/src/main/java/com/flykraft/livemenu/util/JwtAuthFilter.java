@@ -33,6 +33,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
         String origin = request.getHeader("Origin");
         Long resolvedKitchenId = null;
+
         if (origin != null) {
             String cleanOrigin = origin.replaceFirst("^https?://", "");
             String subdomain = cleanOrigin.split("\\.")[0];
@@ -41,8 +42,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             if (kitchenOpt.isPresent()) {
                 resolvedKitchenId = kitchenOpt.get().getId();
             } else {
-                response.setStatus(HttpStatus.FORBIDDEN.value());
-                response.getWriter().write("Access Denied: Invalid kitchen subdomain.");
+                response.setStatus(HttpStatus.NOT_FOUND.value());
+                response.getWriter().write("Not Found: Kitchen does not exist");
                 return;
             }
         }
