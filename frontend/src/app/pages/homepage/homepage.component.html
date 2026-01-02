@@ -7,10 +7,10 @@
       <!-- Brand -->
       <div>
         <h1 class="text-xl sm:text-2xl font-bold text-gray-900">
-          Livemenu Foods
+          {{ this.kitchenName }}
         </h1>
         <p class="mt-0.5 text-sm text-gray-500">
-          Authentic Andhra-Style Cuisine
+          {{ this.kitchenTagline }}
         </p>
       </div>
 
@@ -47,48 +47,6 @@
     </div>
   </div>
 
-  <div class="max-w-6xl mx-auto min-h-[60vh]">
-    <!-- Loading State (Skeletons) -->
-    <ng-container *ngIf="isLoading">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div
-          *ngFor="let _ of skeletons"
-          class="h-36 bg-white rounded-xl border border-gray-100 animate-pulse"
-        ></div>
-      </div>
-    </ng-container>
-
-    <!-- Error State -->
-    <div *ngIf="errorMessage && !isLoading">
-      <div
-        class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded"
-        role="alert"
-      >
-        <strong class="font-semibold">Error:</strong>
-        <span class="ml-1">{{ errorMessage }}</span>
-      </div>
-    </div>
-
-    <!-- Menu Items -->
-    <ng-container *ngIf="!isLoading && !errorMessage">
-      <div
-        *ngIf="menuItems.length > 0; else emptyState"
-        class="grid grid-cols-1 lg:grid-cols-2 gap-4"
-      >
-        <app-menu-item-card
-          *ngFor="let item of menuItems; trackBy: trackById"
-          [menuItem]="item"
-        ></app-menu-item-card>
-      </div>
-
-      <!-- Empty State -->
-      <ng-template #emptyState>
-        <div class="text-center py-20">
-          <p class="text-gray-500 text-lg">
-            No menu items available right now.
-          </p>
-        </div>
-      </ng-template>
-    </ng-container>
-  </div>
+  <!-- Menu Component -->
+  <app-menu></app-menu>
 </div>

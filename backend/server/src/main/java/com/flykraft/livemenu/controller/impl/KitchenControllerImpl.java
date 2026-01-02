@@ -22,13 +22,6 @@ public class KitchenControllerImpl implements KitchenController {
     }
 
     @Override
-    public ResponseEntity<?> validateSubdomain(String subdomain) {
-        return kitchenRepository.findBySubdomain(subdomain.toLowerCase())
-                .map(kitchen -> ResponseEntity.ok().build())
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @Override
     public ResponseEntity<KitchenResDto> registerKitchen(RegisterKitchenDto registerKitchenDto) {
         return ResponseEntity.ok().body(kitchenService.registerKitchen(registerKitchenDto).toResponseDto());
     }
