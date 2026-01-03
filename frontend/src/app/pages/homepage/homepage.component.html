@@ -48,16 +48,5 @@
   </div>
 
   <!-- Menu Component -->
-  <div
-    *ngIf="!loading"
-    class="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8"
-  >
-    <app-menu *ngIf="tenantService.isKitchenValid"></app-menu>
-  </div>
-
-  <div *ngIf="loading" class="flex justify-center items-center h-screen">
-    <div
-      class="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600"
-    ></div>
-  </div>
+  <app-menu *ngIf="!loading && tenantService.isKitchenValid"></app-menu>
 </div>

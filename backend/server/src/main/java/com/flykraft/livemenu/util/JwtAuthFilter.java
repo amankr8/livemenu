@@ -90,6 +90,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         } catch (Exception e) {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             response.getWriter().write("Authentication failed.");
+            throw e;
         } finally {
             TenantContext.clear();
         }

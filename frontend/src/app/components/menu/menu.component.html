@@ -1,6 +1,6 @@
 <div class="max-w-6xl mx-auto min-h-[60vh]">
   <!-- Loading State (Skeletons) -->
-  <ng-container *ngIf="isLoading">
+  <ng-container *ngIf="loading">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
       <div
         *ngFor="let _ of skeletons"
@@ -10,18 +10,18 @@
   </ng-container>
 
   <!-- Error State -->
-  <div *ngIf="errorMessage && !isLoading">
+  <div *ngIf="error && !loading">
     <div
       class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded"
       role="alert"
     >
       <strong class="font-semibold">Error:</strong>
-      <span class="ml-1">{{ errorMessage }}</span>
+      <span class="ml-1">{{ error }}</span>
     </div>
   </div>
 
   <!-- Menu Items -->
-  <ng-container *ngIf="!isLoading && !errorMessage">
+  <ng-container *ngIf="!loading && !error">
     <div
       *ngIf="menuItems.length > 0; else emptyState"
       class="grid grid-cols-1 lg:grid-cols-2 gap-4"
