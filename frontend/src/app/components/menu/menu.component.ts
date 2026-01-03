@@ -11,9 +11,9 @@ import { MenuItemCardComponent } from '../menu-item-card/menu-item-card.componen
 })
 export class MenuComponent {
   menuItems: MenuItem[] = [];
-  isLoading: boolean = true;
+  loading: boolean = true;
   skeletons = Array(6);
-  errorMessage: string = '';
+  error: string = '';
 
   constructor(private menuService: MenuService) {}
 
@@ -29,13 +29,12 @@ export class MenuComponent {
     this.menuService.getMenuItems().subscribe({
       next: (data: MenuItem[]) => {
         this.menuItems = data;
-        this.isLoading = false;
+        this.loading = false;
       },
       error: (error) => {
         console.error('Error fetching menu items:', error);
-        this.errorMessage =
-          'Failed to load menu items. Please try again later.';
-        this.isLoading = false;
+        this.error = 'Failed to load menu items. Please try again later.';
+        this.loading = false;
       },
     });
   }
