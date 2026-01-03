@@ -5,6 +5,7 @@ import com.flykraft.livemenu.model.Authority;
 import com.flykraft.livemenu.repository.AuthUserRepository;
 import com.flykraft.livemenu.service.AuthService;
 import com.flykraft.livemenu.service.JwtService;
+import com.flykraft.livemenu.util.AuthUtil;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -93,13 +95,13 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public String login(String username, String password) {
         try {
-            AuthUser authUser = loadUserByUsername(username);
-            authenticationManager.authenticate(
+            Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                     username,
                     password
                 )
             );
+            AuthUser authUser = AuthUtil.getAuthUser(authentication);
             return jwtService.generateToken(authUser);
         } catch (AuthenticationException e) {
             throw new IllegalArgumentException("Invalid username or password");

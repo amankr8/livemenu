@@ -6,22 +6,30 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 public class AuthUtil {
-    public static AuthUser getLoggedInUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !authentication.isAuthenticated()) {
-            throw new IllegalStateException("No authenticated user found");
-        } else if (authentication.getPrincipal() instanceof AuthUser authUser) {
-            return authUser;
-        } else {
-            throw new SecurityException("AuthUser not found in security context");
-        }
-    }
-
     public static boolean isAdminLogin() {
         try {
             return getLoggedInUser().getAuthority().equals(Authority.ADMIN);
         } catch (Exception e) {
             return false;
+        }
+    }
+
+    public static AuthUser getLoggedInUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        try {
+            return getAuthUser(authentication);
+        } catch (IllegalStateException e) {
+            throw new SecurityException("User is not logged in.");
+        }
+    }
+
+    public static AuthUser getAuthUser(Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new IllegalStateException("Empty Auth Context.");
+        } else if (authentication.getPrincipal() instanceof AuthUser authUser) {
+            return authUser;
+        } else {
+            throw new IllegalStateException("Invalid Auth Context.");
         }
     }
 }
