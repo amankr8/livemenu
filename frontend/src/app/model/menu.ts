@@ -1,4 +1,3 @@
-// menu.component.ts
 export interface MenuItem {
   id: number;
   name: string;
