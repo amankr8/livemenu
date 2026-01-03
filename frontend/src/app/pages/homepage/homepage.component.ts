@@ -26,9 +26,9 @@ export class HomepageComponent {
     this.kitchenService.getKitchen().subscribe({
       next: (data: Kitchen) => {
         this.tenantService.isKitchenValid = true;
+        document.title = data.name + ' - Home';
         this.kitchenName = data.name;
         this.kitchenTagline = data.tagline;
-        document.title = this.kitchenName + ' - Home';
       },
       error: (error) => {
         this.tenantService.isKitchenValid = false;
