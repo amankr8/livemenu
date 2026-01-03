@@ -19,6 +19,9 @@ spring:
       secret: ${JWT_SECRET:local_dev_secret_key_make_it_long_enough_32_chars}
       expiration: 86400000
 
+  cache:
+    type: redis
+
   data:
     redis:
       host: ${REDIS_HOST:localhost}
