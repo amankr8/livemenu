@@ -8,6 +8,8 @@ import com.flykraft.livemenu.repository.KitchenRepository;
 import com.flykraft.livemenu.service.KitchenService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.Cache;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -35,7 +37,6 @@ public class KitchenServiceImpl implements KitchenService {
                 .orElseThrow(() -> new ResourceNotFoundException("Kitchen with subdomain " + subdomain + " not found"));
     }
 
-    @CachePut(value = "kitchens", key = "#result.subdomain")
     @Override
     public Kitchen addKitchen(KitchenReqDto kitchenReqDto) {
         String subdomain = kitchenReqDto.getSubdomain().toLowerCase().trim();
@@ -53,7 +54,7 @@ public class KitchenServiceImpl implements KitchenService {
         return kitchenRepository.save(kitchen);
     }
 
-    @Transactional
+    @CacheEvict(value = "kitchens", key = "#result.subdomain")
     @Override
     public Kitchen updateKitchenDetails(Long kitchenId, KitchenReqDto kitchenReqDto) {
         Kitchen selectedKitchen = loadKitchenById(kitchenId);

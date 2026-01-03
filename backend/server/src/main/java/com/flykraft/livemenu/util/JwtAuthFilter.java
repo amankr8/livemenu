@@ -39,7 +39,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             String subdomain = cleanOrigin.split("\\.")[0];
 
             try {
-                Kitchen kitchen = kitchenService.loadKitchenBySubdomain(subdomain.toLowerCase());
+                Kitchen kitchen = kitchenService.loadKitchenBySubdomain(subdomain);
                 resolvedKitchenId = kitchen.getId();
             } catch (ResourceNotFoundException e) {
                 response.setStatus(HttpStatus.NOT_FOUND.value());
