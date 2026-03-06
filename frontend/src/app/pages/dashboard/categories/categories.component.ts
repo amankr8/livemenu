@@ -61,17 +61,17 @@ export class CategoriesComponent {
     this.resetForm();
   }
 
-  onDelete(id: number) {
+  onDelete(cat: Category) {
     this.uiService.ask({
       title: 'Delete Category?',
-      message: `Are you sure you want to delete this category? This action cannot be undone.`,
+      message: `Are you sure you want to delete "${cat.name}"? This action cannot be undone.`,
       confirmText: 'Yes, Delete',
       cancelText: 'Keep it',
       action: () => {
-        this.categoryService.deleteCategory(id).subscribe({
+        this.categoryService.deleteCategory(cat.id).subscribe({
           next: () => {
             this.uiService.showToast('Category removed successfully');
-            if (this.editingId() === id) {
+            if (this.editingId() === cat.id) {
               this.resetForm();
             }
           },
