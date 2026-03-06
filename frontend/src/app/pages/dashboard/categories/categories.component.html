@@ -79,7 +79,7 @@
       <span
         class="text-[11px] font-black uppercase tracking-[0.2em] text-gray-400"
       >
-        Total Categories ({{ categoryService.categories().length }})
+        Total Categories ({{ categoryService.categories()?.length }})
       </span>
       <button
         (click)="categoryService.refreshCategories()"
@@ -93,7 +93,7 @@
     </div>
 
     <div
-      *ngIf="categoryService.loading() && !categoryService.categories().length"
+      *ngIf="categoryService.loading() && !categoryService.categories()?.length"
       class="space-y-3"
     >
       <div
@@ -105,35 +105,33 @@
     <div class="grid grid-cols-1 gap-3">
       <div
         *ngFor="let cat of categoryService.categories()"
-        class="group bg-white rounded-[1.5rem] p-4 border border-gray-100 flex items-center justify-between hover:shadow-md hover:border-orange-100 transition-all"
+        class="group bg-white rounded-[1.5rem] p-4 border border-gray-100 flex items-center justify-between hover:shadow-md hover:border-orange-100 transition-all shadow-sm shadow-gray-50/50"
       >
         <div class="flex items-center gap-4">
+          <!-- Icon Container -->
           <div
             class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-orange-50 group-hover:text-orange-600 transition-colors"
           >
             <fa-icon [icon]="icons.tag"></fa-icon>
           </div>
-          <div>
-            <span
-              class="text-sm font-black text-gray-800 tracking-tight block"
-              >{{ cat.name }}</span
-            >
-            <span
-              class="text-[9px] text-gray-400 font-bold uppercase tracking-tighter"
-              >Category ID: #{{ cat.id }}</span
-            >
-          </div>
+
+          <!-- Category Name only -->
+          <span class="text-sm font-black text-gray-800 tracking-tight">
+            {{ cat.name }}
+          </span>
         </div>
 
         <div class="flex items-center gap-2">
           <button
             (click)="startEdit(cat)"
+            title="Edit Category"
             class="w-9 h-9 flex items-center justify-center text-gray-300 hover:text-orange-600 hover:bg-orange-50 rounded-lg transition-all"
           >
             <fa-icon [icon]="icons.edit" class="text-xs"></fa-icon>
           </button>
           <button
             (click)="onDelete(cat.id)"
+            title="Delete Category"
             class="w-9 h-9 flex items-center justify-center text-gray-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"
           >
             <fa-icon [icon]="icons.delete" class="text-xs"></fa-icon>
@@ -144,7 +142,7 @@
       <!-- Empty State -->
       <div
         *ngIf="
-          !categoryService.loading() && !categoryService.categories().length
+          !categoryService.loading() && !categoryService.categories()?.length
         "
         class="py-20 text-center bg-white rounded-[2.5rem] border-2 border-dashed border-gray-100"
       >
