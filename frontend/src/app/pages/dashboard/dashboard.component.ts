@@ -54,6 +54,11 @@ export class DashboardComponent {
     },
     { path: '/dashboard/menu', label: 'Menu List', icon: this.icons.bowl },
     {
+      path: '/dashboard/categories',
+      label: 'Categories',
+      icon: this.icons.tag,
+    },
+    {
       path: '/dashboard/kitchen',
       label: 'My Kitchen',
       icon: this.icons.kitchen,
@@ -92,6 +97,7 @@ export class DashboardComponent {
   getPageRouteName(): string {
     const url = this.router.url;
     if (url.includes('/live-orders')) return 'Live Orders';
+    if (url.includes('/categories')) return 'Menu Categories';
     if (url.includes('/menu/add')) return 'Add New Item';
     if (url.includes('/menu/edit')) return 'Edit Menu Item';
     if (url.includes('/menu')) return 'Menu Items';

@@ -1,0 +1,162 @@
+<div
+  class="grid grid-cols-1 lg:grid-cols-12 gap-8 animate-in fade-in duration-500"
+>
+  <div class="lg:col-span-4">
+    <div class="sticky top-24 space-y-4">
+      <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100">
+        <div class="flex items-center gap-3 mb-6">
+          <div
+            class="w-10 h-10 bg-orange-50 text-orange-600 rounded-xl flex items-center justify-center"
+          >
+            <fa-icon [icon]="isEditing() ? icons.edit : icons.plus"></fa-icon>
+          </div>
+          <div>
+            <h3
+              class="text-sm font-black text-gray-900 uppercase tracking-tight"
+            >
+              {{ isEditing() ? "Edit" : "New" }} Category
+            </h3>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div>
+            <label
+              class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1"
+              >Category Name</label
+            >
+            <input
+              type="text"
+              [(ngModel)]="categoryName"
+              placeholder="e.g. Desserts"
+              class="w-full mt-1 px-5 py-4 bg-gray-50 border-2 border-transparent focus:border-orange-500/20 focus:bg-white rounded-2xl text-sm font-bold transition-all outline-none"
+            />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <button
+              (click)="onSaveCategory()"
+              [disabled]="!categoryName().trim() || isSubmitting()"
+              class="w-full py-4 bg-gray-900 text-white rounded-2xl text-[11px] font-black uppercase tracking-widest flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50 transition-all shadow-lg shadow-gray-200"
+            >
+              <fa-icon
+                *ngIf="isSubmitting()"
+                [icon]="icons.spinner"
+                [animation]="'spin'"
+              ></fa-icon>
+              <span>{{
+                isEditing() ? "Update Changes" : "Create Category"
+              }}</span>
+            </button>
+
+            <button
+              *ngIf="isEditing()"
+              (click)="cancelEdit()"
+              class="w-full py-3 text-gray-400 hover:text-gray-600 text-[10px] font-black uppercase tracking-widest transition-all"
+            >
+              Cancel Selection
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Hint Card -->
+      <div class="bg-blue-50/50 border border-blue-100 rounded-2xl p-4">
+        <div class="flex gap-3">
+          <fa-icon [icon]="icons.info" class="text-blue-500 mt-0.5"></fa-icon>
+          <p class="text-[11px] text-blue-700 leading-relaxed font-medium">
+            Categories help customers find food faster. Common examples:
+            <b>Starters, Main Course, Drinks.</b>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Side: List of Categories -->
+  <div class="lg:col-span-8 space-y-4">
+    <div class="flex items-center justify-between px-2">
+      <span
+        class="text-[11px] font-black uppercase tracking-[0.2em] text-gray-400"
+      >
+        Total Categories ({{ categoryService.categories().length }})
+      </span>
+      <button
+        (click)="categoryService.refreshCategories()"
+        class="text-gray-300 hover:text-orange-500 transition-colors"
+      >
+        <fa-icon
+          [icon]="icons.refresh"
+          [class.animate-spin]="categoryService.loading()"
+        ></fa-icon>
+      </button>
+    </div>
+
+    <div
+      *ngIf="categoryService.loading() && !categoryService.categories().length"
+      class="space-y-3"
+    >
+      <div
+        *ngFor="let i of [1, 2, 3, 4]"
+        class="h-20 w-full bg-white rounded-3xl animate-pulse border border-gray-100"
+      ></div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-3">
+      <div
+        *ngFor="let cat of categoryService.categories()"
+        class="group bg-white rounded-[1.5rem] p-4 border border-gray-100 flex items-center justify-between hover:shadow-md hover:border-orange-100 transition-all"
+      >
+        <div class="flex items-center gap-4">
+          <div
+            class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-orange-50 group-hover:text-orange-600 transition-colors"
+          >
+            <fa-icon [icon]="icons.tag"></fa-icon>
+          </div>
+          <div>
+            <span
+              class="text-sm font-black text-gray-800 tracking-tight block"
+              >{{ cat.name }}</span
+            >
+            <span
+              class="text-[9px] text-gray-400 font-bold uppercase tracking-tighter"
+              >Category ID: #{{ cat.id }}</span
+            >
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button
+            (click)="startEdit(cat)"
+            class="w-9 h-9 flex items-center justify-center text-gray-300 hover:text-orange-600 hover:bg-orange-50 rounded-lg transition-all"
+          >
+            <fa-icon [icon]="icons.edit" class="text-xs"></fa-icon>
+          </button>
+          <button
+            (click)="onDelete(cat.id)"
+            class="w-9 h-9 flex items-center justify-center text-gray-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"
+          >
+            <fa-icon [icon]="icons.delete" class="text-xs"></fa-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div
+        *ngIf="
+          !categoryService.loading() && !categoryService.categories().length
+        "
+        class="py-20 text-center bg-white rounded-[2.5rem] border-2 border-dashed border-gray-100"
+      >
+        <div
+          class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-200"
+        >
+          <fa-icon [icon]="icons.tag" class="text-2xl"></fa-icon>
+        </div>
+        <p class="text-sm font-black text-gray-400 uppercase tracking-widest">
+          No Categories Created
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

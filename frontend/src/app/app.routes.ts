@@ -15,6 +15,7 @@ import { DeliveryDetailsComponent } from './pages/homepage/cart/delivery-details
 import { LiveOrdersComponent } from './pages/dashboard/live-orders/live-orders.component';
 import { CartItemsComponent } from './pages/homepage/cart/cart-items/cart-items.component';
 import { MyOrdersComponent } from './pages/homepage/user/orders/my-orders.component';
+import { CategoriesComponent } from './pages/dashboard/categories/categories.component';
 
 export const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -53,6 +54,7 @@ export const routes: Routes = [
         ],
       },
       { path: 'kitchen', component: KitchenComponent },
+      { path: 'categories', component: CategoriesComponent },
     ],
   },
   { path: '**', component: PageNotFoundComponent },

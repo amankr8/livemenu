@@ -44,11 +44,13 @@ import {
   faUserCheck,
   faLocationArrow,
   faLocationDot,
+  faTag,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 
 export const Icons = {
+  tag: faTag,
   locationArrow: faLocationArrow,
   locationDot: faLocationDot,
   filter: faFilter,

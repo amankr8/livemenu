@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 import { Category } from '../model/category';
 import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, tap, throwError } from 'rxjs';
@@ -11,7 +11,7 @@ export class CategoryService {
   private apiUrl = environment.apiBaseUrl + '/api/v1/categories';
 
   // 🔹 State signals
-  private readonly _categories = signal<Category[]>([]);
+  private readonly _categories = signal<Category[] | null>(null);
   readonly categories = this._categories.asReadonly();
 
   private readonly _loading = signal(false);
@@ -55,7 +55,7 @@ export class CategoryService {
   // --------------------
   // Mutations
   // --------------------
-  addMenuItem(payload: { categoryName: string }): Observable<Category> {
+  addCategory(payload: { categoryName: string }): Observable<Category> {
     this._error.set(null);
 
     return this.http.post<Category>(this.apiUrl, payload).pipe(
