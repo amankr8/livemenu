@@ -15,12 +15,12 @@ import { UiService } from '../../../service/ui.service';
 export class CategoriesComponent {
   private uiService = inject(UiService);
   categoryService = inject(CategoryService);
-  location = inject(Location);
 
   categoryName = signal('');
   isEditing = signal(false);
   editingId = signal<number | null>(null);
   isSubmitting = signal(false);
+  showModal = signal(false); // New signal for modal visibility
 
   icons = Icons;
 
@@ -28,37 +28,50 @@ export class CategoriesComponent {
     this.categoryService.loadCategories();
   }
 
-  onSaveCategory() {
-    const name = this.categoryName().trim();
-    if (!name) return;
-
-    this.isSubmitting.set(true);
-
-    if (this.isEditing() && this.editingId()) {
-      this.categoryService
-        .updateCategory(this.editingId()!, { categoryName: name })
-        .subscribe({
-          next: () => this.resetForm(),
-          error: () => this.isSubmitting.set(false),
-        });
-    } else {
-      this.categoryService.addCategory({ categoryName: name }).subscribe({
-        next: () => this.resetForm(),
-        error: () => this.isSubmitting.set(false),
-      });
-    }
+  openAddModal() {
+    this.resetForm();
+    this.showModal.set(true);
   }
 
   startEdit(cat: Category) {
     this.isEditing.set(true);
     this.editingId.set(cat.id);
     this.categoryName.set(cat.name);
-
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    this.showModal.set(true);
   }
 
-  cancelEdit() {
+  onSaveCategory() {
+    const name = this.categoryName().trim();
+    if (!name) return;
+
+    this.isSubmitting.set(true);
+    const request = this.isEditing()
+      ? this.categoryService.updateCategory(this.editingId()!, {
+          categoryName: name,
+        })
+      : this.categoryService.addCategory({ categoryName: name });
+
+    request.subscribe({
+      next: () => {
+        this.uiService.showToast(
+          `Category ${this.isEditing() ? 'updated' : 'created'}!`,
+        );
+        this.closeModal();
+      },
+      error: () => this.isSubmitting.set(false),
+    });
+  }
+
+  closeModal() {
+    this.showModal.set(false);
     this.resetForm();
+  }
+
+  private resetForm() {
+    this.categoryName.set('');
+    this.isEditing.set(false);
+    this.editingId.set(null);
+    this.isSubmitting.set(false);
   }
 
   onDelete(cat: Category) {
@@ -84,12 +97,5 @@ export class CategoriesComponent {
         });
       },
     });
-  }
-
-  private resetForm() {
-    this.categoryName.set('');
-    this.isEditing.set(false);
-    this.editingId.set(null);
-    this.isSubmitting.set(false);
   }
 }
