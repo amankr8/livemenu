@@ -5,6 +5,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CommonModule, Location } from '@angular/common';
 import { Icons } from '../../../utils/icons';
 import { FormsModule } from '@angular/forms';
+import { UiService } from '../../../service/ui.service';
 
 @Component({
   selector: 'app-categories',
@@ -12,6 +13,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './categories.component.html',
 })
 export class CategoriesComponent {
+  private uiService = inject(UiService);
   categoryService = inject(CategoryService);
   location = inject(Location);
 
@@ -60,13 +62,28 @@ export class CategoriesComponent {
   }
 
   onDelete(id: number) {
-    if (
-      confirm(
-        'Are you sure you want to delete this category? Items in this category will become uncategorized.',
-      )
-    ) {
-      this.categoryService.deleteCategory(id).subscribe();
-    }
+    this.uiService.ask({
+      title: 'Delete Category?',
+      message: `Are you sure you want to delete this category? This action cannot be undone.`,
+      confirmText: 'Yes, Delete',
+      cancelText: 'Keep it',
+      action: () => {
+        this.categoryService.deleteCategory(id).subscribe({
+          next: () => {
+            this.uiService.showToast('Category removed successfully');
+            if (this.editingId() === id) {
+              this.resetForm();
+            }
+          },
+          error: () => {
+            this.uiService.showToast(
+              'Could not delete category. It might be in use.',
+              'error',
+            );
+          },
+        });
+      },
+    });
   }
 
   private resetForm() {
