@@ -28,6 +28,11 @@ export class CategoriesComponent {
     this.categoryService.loadCategories();
   }
 
+  getItemCount(categoryId: number): number {
+    return 0;
+    // return this.menuService.menuItems().filter(item => item.categoryId === categoryId).length;
+  }
+
   openAddModal() {
     this.resetForm();
     this.showModal.set(true);
