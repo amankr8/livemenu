@@ -39,10 +39,14 @@ export class AddMenuItemComponent {
   itemForm: FormGroup = this.fb.group({
     name: ['', Validators.required],
     desc: ['', Validators.required],
-    category: ['STARTERS', Validators.required],
+    category: ['', Validators.required],
     price: ['', [Validators.required, Validators.min(0)]],
     isVeg: [true],
   });
+
+  ngOnInit() {
+    this.categoryService.loadCategories();
+  }
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
