@@ -15,6 +15,7 @@ import {
   ALLOWED_FILE_TYPES,
   MAX_FILE_SIZE,
 } from '../../../../constants/app.constant';
+import { CategoryService } from '../../../../service/category.service';
 
 @Component({
   selector: 'app-edit-menu-item',
@@ -28,6 +29,7 @@ export class EditMenuItemComponent {
   private fb = inject(FormBuilder);
   private uiService = inject(UiService);
   private router = inject(Router);
+  categoryService = inject(CategoryService);
 
   imagePreview = signal<string | null>(null);
   selectedFile: File | null = null;
@@ -70,6 +72,7 @@ export class EditMenuItemComponent {
 
   ngOnInit() {
     this.menuService.loadMenuItems();
+    this.categoryService.loadCategories();
   }
 
   onFileSelected(event: any) {
