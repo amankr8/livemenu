@@ -15,6 +15,7 @@ import {
   ALLOWED_FILE_TYPES,
   MAX_FILE_SIZE,
 } from '../../../../constants/app.constant';
+import { CategoryService } from '../../../../service/category.service';
 
 @Component({
   selector: 'app-add-menu-item',
@@ -26,6 +27,7 @@ export class AddMenuItemComponent {
   private router = inject(Router);
   private menuService = inject(MenuService);
   private uiService = inject(UiService);
+  categoryService = inject(CategoryService);
 
   imagePreview = signal<string | null>(null);
   selectedFile: File | null = null;

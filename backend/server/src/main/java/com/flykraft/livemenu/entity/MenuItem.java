@@ -2,13 +2,10 @@ package com.flykraft.livemenu.entity;
 
 import com.flykraft.livemenu.dto.menu.MenuItemResponseDto;
 import com.flykraft.livemenu.model.Auditable;
-import com.flykraft.livemenu.model.Category;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Filter;
-import org.hibernate.annotations.FilterDef;
-import org.hibernate.annotations.ParamDef;
 
 import java.math.BigDecimal;
 
@@ -37,9 +34,8 @@ public class MenuItem extends Auditable {
     @Column(name = "mi_desc")
     private String desc;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "mi_category")
-    private Category category;
+    private String category;
 
     @Column(name = "mi_in_stock", nullable = false)
     private Boolean inStock;

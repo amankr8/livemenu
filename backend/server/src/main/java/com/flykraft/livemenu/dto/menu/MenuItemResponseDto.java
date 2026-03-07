@@ -1,6 +1,5 @@
 package com.flykraft.livemenu.dto.menu;
 
-import com.flykraft.livemenu.model.Category;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +13,7 @@ public class MenuItemResponseDto {
     private Long id;
     private String name;
     private String desc;
-    private Category category;
+    private String category;
     private Boolean inStock;
     private Boolean isVeg;
     private BigDecimal price;

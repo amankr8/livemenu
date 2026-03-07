@@ -1,6 +1,5 @@
 package com.flykraft.livemenu.dto.menu;
 
-import com.flykraft.livemenu.model.Category;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,7 +11,7 @@ import java.math.BigDecimal;
 public class MenuItemRequestDto {
     private String name;
     private String desc;
-    private Category category;
+    private String category;
     private Boolean isVeg;
     private BigDecimal price;
     private MultipartFile image;

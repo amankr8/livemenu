@@ -14,18 +14,26 @@ import { UiService } from '../../../service/ui.service';
 })
 export class CategoriesComponent {
   private uiService = inject(UiService);
-  categoryService = inject(CategoryService);
+  private categoryService = inject(CategoryService);
+
+  categories = this.categoryService.categories;
+  loading = this.categoryService.loading;
+  error = this.categoryService.error;
 
   categoryName = signal('');
   isEditing = signal(false);
   editingId = signal<number | null>(null);
   isSubmitting = signal(false);
-  showModal = signal(false); // New signal for modal visibility
+  showModal = signal(false);
 
   icons = Icons;
 
   ngOnInit() {
     this.categoryService.loadCategories();
+  }
+
+  refresh() {
+    this.categoryService.refreshCategories();
   }
 
   getItemCount(categoryId: number): number {

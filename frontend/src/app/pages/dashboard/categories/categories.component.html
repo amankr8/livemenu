@@ -7,20 +7,20 @@
       <span
         class="text-[11px] font-black uppercase tracking-[0.2em] text-gray-400"
       >
-        Total Categories ({{ categoryService.categories()?.length || 0 }})
+        Total Categories ({{ categories()?.length || 0 }})
       </span>
     </div>
 
     <div class="flex items-center gap-3">
       <!-- Refresh Button -->
       <button
-        (click)="categoryService.refreshCategories()"
+        (click)="refresh()"
         class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-orange-500 hover:bg-orange-50 rounded-xl transition-all"
         title="Refresh List"
       >
         <fa-icon
           [icon]="icons.refresh"
-          [class.animate-spin]="categoryService.loading()"
+          [class.animate-spin]="loading()"
         ></fa-icon>
       </button>
 
@@ -39,7 +39,7 @@
   <div class="space-y-3">
     <!-- Loading Skeleton -->
     <div
-      *ngIf="categoryService.loading() && !categoryService.categories()?.length"
+      *ngIf="loading() && !categories()?.length"
       class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
     >
       <div
@@ -50,11 +50,11 @@
 
     <!-- Data Grid -->
     <div
-      *ngIf="!categoryService.loading()"
+      *ngIf="!loading()"
       class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
     >
       <div
-        *ngFor="let cat of categoryService.categories()"
+        *ngFor="let cat of categories()"
         class="group bg-white rounded-[1.8rem] p-5 border border-gray-100 flex items-center justify-between hover:border-orange-200 hover:shadow-lg hover:shadow-orange-500/5 transition-all"
       >
         <div class="flex items-center gap-4">
@@ -113,7 +113,7 @@
 
       <!-- Empty State -->
       <div
-        *ngIf="!categoryService.categories()?.length"
+        *ngIf="!categories()?.length"
         class="col-span-full py-20 text-center bg-white rounded-[2.5rem] border-2 border-dashed border-gray-100"
       >
         <div
