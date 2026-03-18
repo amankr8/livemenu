@@ -81,10 +81,7 @@ public class MenuServiceImpl implements MenuService {
 
         validateImage(imageFile);
         CloudinaryFile cloudinaryFile = cloudinaryService.uploadFile(new DishImage(), imageFile, folderPath);
-        return DishImage.builder()
-                .publicId(cloudinaryFile.getPublicId())
-                .secureUrl(cloudinaryFile.getSecureUrl())
-                .build();
+        return (DishImage) cloudinaryFile;
     }
 
     @Transactional

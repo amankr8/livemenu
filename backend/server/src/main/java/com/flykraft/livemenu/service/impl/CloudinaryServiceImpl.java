@@ -19,9 +19,9 @@ public class CloudinaryServiceImpl implements CloudinaryService {
     private final Cloudinary cloudinary;
 
     @Override
-    public CloudinaryFile uploadFile(CloudinaryFile cloudinaryFile, MultipartFile file, String folderPath) {
+    public CloudinaryFile uploadFile(CloudinaryFile fileType, MultipartFile file, String folderPath) {
         try {
-            Map<?, ?> params = cloudinaryFile.getUploadParams(folderPath);
+            Map<?, ?> params = fileType.getUploadParams(folderPath);
             Map<?, ?> result = cloudinary.uploader().upload(file.getBytes(), params);
             return CloudinaryFile.builder()
                     .publicId(result.get("public_id").toString())
