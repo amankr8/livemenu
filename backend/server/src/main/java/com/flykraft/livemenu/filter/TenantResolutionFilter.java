@@ -11,6 +11,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.lang.NonNull;
@@ -24,6 +25,9 @@ import java.io.IOException;
 public class TenantResolutionFilter extends OncePerRequestFilter {
     private final KitchenService kitchenService;
     private final ObjectMapper objectMapper;
+
+    @Value("${spring.application.name}")
+    private String appName;
 
     @Override
     protected void doFilterInternal(
@@ -40,9 +44,10 @@ public class TenantResolutionFilter extends OncePerRequestFilter {
         try {
             String cleanOrigin = origin.replaceFirst("^https?://", "");
             String subdomain = cleanOrigin.split("\\.")[0];
-            Kitchen kitchen = kitchenService.loadKitchenBySubdomain(subdomain);
-            TenantContext.setKitchenId(kitchen.getId());
-
+            if (!subdomain.equalsIgnoreCase(appName)) {
+                Kitchen kitchen = kitchenService.loadKitchenBySubdomain(subdomain);
+                TenantContext.setKitchenId(kitchen.getId());
+            }
             filterChain.doFilter(request, response);
         } catch (ResourceNotFoundException e) {
             response.setStatus(HttpStatus.NOT_FOUND.value());
