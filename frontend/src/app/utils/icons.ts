@@ -45,11 +45,13 @@ import {
   faLocationArrow,
   faLocationDot,
   faTag,
+  faEnvelope,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 
 export const Icons = {
+  envelope: faEnvelope,
   tag: faTag,
   locationArrow: faLocationArrow,
   locationDot: faLocationDot,

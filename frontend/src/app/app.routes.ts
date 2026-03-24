@@ -18,12 +18,19 @@ import { MyOrdersComponent } from './pages/homepage/user/orders/my-orders.compon
 import { CategoriesComponent } from './pages/dashboard/categories/categories.component';
 import { isRootDomain } from './utils/domain.util';
 import { BrandMarketingComponent } from './pages/brand-marketing/brand-marketing.component';
+import { ContactUsComponent } from './pages/contact-us/contact-us.component';
 
 export const routes: Routes = [
   {
     path: '',
     canMatch: [() => isRootDomain()],
-    children: [{ path: '', component: BrandMarketingComponent }],
+    children: [
+      { path: '', component: BrandMarketingComponent },
+      {
+        path: 'contact-us',
+        component: ContactUsComponent,
+      },
+    ],
   },
   {
     path: '',
