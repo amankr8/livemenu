@@ -16,8 +16,15 @@ import { LiveOrdersComponent } from './pages/dashboard/live-orders/live-orders.c
 import { CartItemsComponent } from './pages/homepage/cart/cart-items/cart-items.component';
 import { MyOrdersComponent } from './pages/homepage/user/orders/my-orders.component';
 import { CategoriesComponent } from './pages/dashboard/categories/categories.component';
+import { isRootDomain } from './utils/domain.util';
+import { BrandMarketingComponent } from './pages/brand-marketing/brand-marketing.component';
 
 export const routes: Routes = [
+  {
+    path: '',
+    canMatch: [() => isRootDomain()],
+    children: [{ path: '', component: BrandMarketingComponent }],
+  },
   { path: '', component: HomepageComponent },
   {
     path: 'my-orders',

@@ -1,0 +1,104 @@
+<div class="min-h-screen bg-white">
+  <nav
+    class="h-20 flex items-center justify-between px-6 md:px-12 border-b border-gray-50"
+  >
+    <div class="flex items-center gap-2">
+      <fa-icon [icon]="icons.logo" class="text-orange-600 text-2xl"></fa-icon>
+      <span class="text-xl font-black text-gray-900 tracking-tight"
+        >LiveMenu</span
+      >
+    </div>
+    <div
+      class="hidden md:flex items-center gap-8 text-sm font-black uppercase tracking-widest text-gray-500"
+    >
+      <a routerLink="/features" class="hover:text-orange-600 transition-colors"
+        >Features</a
+      >
+      <a
+        routerLink="/contact-us"
+        class="hover:text-orange-600 transition-colors"
+        >Contact</a
+      >
+      <a
+        routerLink="/login"
+        class="px-6 py-3 bg-gray-900 text-white rounded-2xl active:scale-95 transition-all"
+        >Sign In</a
+      >
+    </div>
+  </nav>
+
+  <header
+    class="py-20 px-6 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+  >
+    <div class="space-y-8">
+      <span
+        class="px-4 py-2 bg-orange-50 text-orange-600 rounded-full text-[10px] font-black uppercase tracking-[0.2em]"
+      >
+        The Future of Dining
+      </span>
+      <h1
+        class="text-5xl md:text-7xl font-black text-gray-900 leading-[1.1] tracking-tight"
+      >
+        Your Menu, <br /><span
+          class="text-orange-600 underline decoration-orange-100"
+          >Digitized.</span
+        >
+      </h1>
+      <p class="text-lg text-gray-500 font-medium leading-relaxed max-w-lg">
+        Create a professional digital menu for your kitchen in minutes. Share a
+        simple link, take orders, and grow your brand with LiveMenu.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <button
+          class="px-8 py-5 bg-orange-600 text-white rounded-[2rem] font-black uppercase tracking-widest shadow-xl shadow-orange-200 hover:bg-orange-700 active:scale-95 transition-all"
+        >
+          Create Your Menu
+        </button>
+        <button
+          class="px-8 py-5 bg-white text-gray-900 border-2 border-gray-100 rounded-[2rem] font-black uppercase tracking-widest hover:bg-gray-50 transition-all"
+        >
+          See Live Demo
+        </button>
+      </div>
+    </div>
+
+    <div class="relative">
+      <div
+        class="absolute inset-0 bg-orange-500/10 blur-[120px] rounded-full"
+      ></div>
+      <div
+        class="relative bg-gray-900 rounded-[3rem] p-4 shadow-2xl border-8 border-gray-800 max-w-[320px] mx-auto transform rotate-2"
+      >
+        <div class="bg-white rounded-[2.2rem] h-[550px] overflow-hidden">
+          <div class="h-40 bg-gray-100 animate-pulse"></div>
+          <div class="p-6 space-y-4">
+            <div class="h-4 w-3/4 bg-gray-100 rounded"></div>
+            <div class="h-2 w-full bg-gray-50 rounded"></div>
+            <div class="grid grid-cols-2 gap-3 mt-8">
+              <div class="h-24 bg-gray-50 rounded-2xl"></div>
+              <div class="h-24 bg-gray-50 rounded-2xl"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="bg-gray-50 py-16">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div
+        class="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm"
+      >
+        <div
+          class="w-12 h-12 bg-orange-50 text-orange-600 rounded-2xl flex items-center justify-center mb-6"
+        >
+          <fa-icon [icon]="icons.tag"></fa-icon>
+        </div>
+        <h4 class="text-xl font-black text-gray-900 mb-2">Easy Setup</h4>
+        <p class="text-sm text-gray-500 font-medium">
+          Add categories and dishes with our intuitive dashboard in seconds.
+        </p>
+      </div>
+    </div>
+  </section>
+</div>

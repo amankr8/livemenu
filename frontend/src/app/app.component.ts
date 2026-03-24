@@ -8,6 +8,7 @@ import { Icons } from './utils/icons';
 import { UiToastComponent } from './pages/components/ui-toast/ui-toast.component';
 import { ConfirmationModalComponent } from './pages/components/confirmation-modal/confirmation-modal.component';
 import { APP_NAME } from './constants/app.constant';
+import { isRootDomain } from './utils/domain.util';
 
 @Component({
   selector: 'app-root',
@@ -27,12 +28,18 @@ export class AppComponent {
   kitchen = this.kitchenService.kitchen;
   loading = this.kitchenService.loading;
   error = this.kitchenService.error;
+  isRoot = signal(isRootDomain());
 
   icons = Icons;
   showHelp = signal(false);
 
   constructor() {
     effect(() => {
+      if (this.isRoot()) {
+        document.title = 'LiveMenu | Digitizing Your Kitchen';
+        return;
+      }
+
       const kitchen = this.kitchen();
       if (!kitchen) return;
       document.title = kitchen.name ?? APP_NAME;
@@ -41,7 +48,9 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.startLoadingTimer();
-    this.kitchenService.loadKitchen();
+    if (!this.isRoot()) {
+      this.kitchenService.loadKitchen();
+    }
   }
 
   startLoadingTimer() {

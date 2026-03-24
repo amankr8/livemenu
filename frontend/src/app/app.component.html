@@ -1,12 +1,13 @@
 <ng-container *ngIf="!loading(); else loadingState">
-  <div *ngIf="!kitchen(); else liveMenu">
-    <app-kitchen-not-found></app-kitchen-not-found>
+  <div
+    *ngIf="isRoot() || kitchen(); else noKitchenFound"
+    class="animate-in fade-in duration-500"
+  >
+    <router-outlet></router-outlet>
   </div>
 
-  <ng-template #liveMenu>
-    <div class="animate-in fade-in duration-500">
-      <router-outlet></router-outlet>
-    </div>
+  <ng-template #noKitchenFound>
+    <app-kitchen-not-found></app-kitchen-not-found>
   </ng-template>
 </ng-container>
 
