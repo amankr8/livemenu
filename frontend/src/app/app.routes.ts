@@ -17,8 +17,8 @@ import { CartItemsComponent } from './pages/homepage/cart/cart-items/cart-items.
 import { MyOrdersComponent } from './pages/homepage/user/orders/my-orders.component';
 import { CategoriesComponent } from './pages/dashboard/categories/categories.component';
 import { isRootDomain } from './utils/domain.util';
-import { BrandMarketingComponent } from './pages/brand-marketing/brand-marketing.component';
-import { ContactUsComponent } from './pages/contact-us/contact-us.component';
+import { BrandMarketingComponent } from './pages/livemenu/brand-marketing/brand-marketing.component';
+import { ContactUsComponent } from './pages/livemenu/contact-us/contact-us.component';
 
 export const routes: Routes = [
   {
