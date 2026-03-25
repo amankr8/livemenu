@@ -43,4 +43,36 @@
   <main class="animate-in fade-in duration-500">
     <router-outlet></router-outlet>
   </main>
+
+  <footer class="py-12 px-6 border-t border-gray-50 bg-white">
+    <div
+      class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6"
+    >
+      <div class="flex items-center gap-2 grayscale opacity-50">
+        <fa-icon [icon]="icons.logo"></fa-icon>
+        <span class="font-black">LiveMenu</span>
+      </div>
+
+      <div
+        class="flex gap-8 text-[10px] font-black uppercase tracking-widest text-gray-400"
+      >
+        <a
+          routerLink="/terms-of-service"
+          routerLinkActive="text-orange-600"
+          class="hover:text-orange-600 transition-colors"
+          >Terms of Service</a
+        >
+        <a
+          routerLink="/privacy-policy"
+          routerLinkActive="text-orange-600"
+          class="hover:text-orange-600 transition-colors"
+          >Privacy Policy</a
+        >
+      </div>
+
+      <p class="text-[10px] text-gray-300 font-bold uppercase tracking-widest">
+        © 2026 LiveMenu
+      </p>
+    </div>
+  </footer>
 </div>

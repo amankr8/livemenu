@@ -20,6 +20,8 @@ import { isRootDomain } from './utils/domain.util';
 import { BrandMarketingComponent } from './pages/livemenu/brand-marketing/brand-marketing.component';
 import { ContactUsComponent } from './pages/livemenu/contact-us/contact-us.component';
 import { LivemenuComponent } from './pages/livemenu/livemenu.component';
+import { PrivacyPolicyComponent } from './pages/livemenu/privacy-policy/privacy-policy.component';
+import { TermsOfServiceComponent } from './pages/livemenu/terms-of-service/terms-of-service.component';
 
 export const routes: Routes = [
   {
@@ -31,6 +33,14 @@ export const routes: Routes = [
       {
         path: 'contact-us',
         component: ContactUsComponent,
+      },
+      {
+        path: 'terms-of-service',
+        component: TermsOfServiceComponent,
+      },
+      {
+        path: 'privacy-policy',
+        component: PrivacyPolicyComponent,
       },
     ],
   },
