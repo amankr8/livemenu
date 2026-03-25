@@ -85,7 +85,7 @@ public class AuthServiceImpl implements AuthService {
             );
             AuthUser authUser = AuthUtil.getAuthUser(authentication);
             return jwtService.generateToken(authUser);
-        } catch (AuthenticationException e) {
+        } catch (AuthenticationException | SecurityException e) {
             throw new IllegalArgumentException("Invalid username or password");
         }
     }

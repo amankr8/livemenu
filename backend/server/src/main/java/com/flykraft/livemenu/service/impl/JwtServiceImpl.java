@@ -1,6 +1,8 @@
 package com.flykraft.livemenu.service.impl;
 
+import com.flykraft.livemenu.config.TenantContext;
 import com.flykraft.livemenu.entity.AuthUser;
+import com.flykraft.livemenu.entity.KitchenOwner;
 import com.flykraft.livemenu.model.Authority;
 import com.flykraft.livemenu.repository.KitchenOwnerRepository;
 import com.flykraft.livemenu.service.JwtService;
@@ -10,8 +12,10 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SecurityException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -74,9 +78,14 @@ public class JwtServiceImpl implements JwtService {
         Map<String, Object> extraClaims = new HashMap<>();
         extraClaims.put(JwtConstants.ROLE_CLAIM, authUser.getAuthority());
         if (authUser.getAuthority().equals(Authority.KITCHEN_OWNER)) {
-            kitchenOwnerRepository.findByAuthUser(authUser).ifPresent(ko ->
-                    extraClaims.put(JwtConstants.KITCHEN_ID_CLAIM, ko.getId())
-            );
+            KitchenOwner kitchenOwner = kitchenOwnerRepository.findByAuthUser(authUser).orElse(null);
+            if (kitchenOwner != null) {
+                Long currentKitchenId = TenantContext.getKitchenId();
+                if (!kitchenOwner.getKitchen().getId().equals(currentKitchenId)) {
+                    throw new SecurityException("Invalid Kitchen Owner");
+                }
+                extraClaims.put(JwtConstants.KITCHEN_ID_CLAIM, currentKitchenId);
+            }
         }
         return generateToken(extraClaims, authUser.getUsername());
     }
