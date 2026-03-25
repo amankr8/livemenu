@@ -1,30 +1,46 @@
 <div class="min-h-screen bg-white">
   <nav
-    class="h-20 flex items-center justify-between px-6 md:px-12 border-b border-gray-50"
+    class="h-20 flex items-center justify-between px-6 md:px-12 border-b border-gray-50 bg-white sticky top-0 z-50"
   >
-    <div routerLink="/" class="flex items-center cursor-pointer gap-2">
-      <fa-icon [icon]="icons.logo" class="text-orange-600 text-2xl"></fa-icon>
+    <div routerLink="/" class="flex items-center cursor-pointer gap-2 group">
+      <fa-icon
+        [icon]="icons.logo"
+        class="text-orange-600 text-2xl transition-transform group-hover:scale-110"
+      ></fa-icon>
       <span class="text-xl font-black text-gray-900 tracking-tight"
         >LiveMenu</span
       >
     </div>
+
     <div
-      class="hidden md:flex items-center gap-8 text-sm font-black uppercase tracking-widest text-gray-500"
+      class="hidden md:flex items-center gap-8 text-[11px] font-black uppercase tracking-widest"
     >
-      <a routerLink="/features" class="hover:text-orange-600 transition-colors"
-        >Features</a
+      <a
+        routerLink="/features"
+        routerLinkActive="text-orange-600"
+        class="text-gray-500 hover:text-orange-600 transition-colors relative"
       >
+        Features
+      </a>
+
       <a
         routerLink="/contact-us"
-        class="hover:text-orange-600 transition-colors"
-        >Contact</a
+        routerLinkActive="text-orange-600"
+        class="text-gray-500 hover:text-orange-600 transition-colors"
       >
+        Contact
+      </a>
+
       <a
         routerLink="/login"
-        class="px-6 py-3 bg-gray-900 text-white rounded-2xl active:scale-95 transition-all"
-        >Sign In</a
+        class="px-6 py-3 bg-gray-900 text-white rounded-2xl active:scale-95 hover:bg-black transition-all shadow-lg shadow-gray-200"
       >
+        Sign In
+      </a>
     </div>
   </nav>
-  <router-outlet></router-outlet>
+
+  <main class="animate-in fade-in duration-500">
+    <router-outlet></router-outlet>
+  </main>
 </div>
