@@ -2,15 +2,12 @@
 @use "tailwindcss";
 
 /* global styles */
-html {
-  scroll-margin-top: 150px;
-  scroll-behavior: smooth;
-}
-
 html,
 body {
   min-height: 100%;
   background-color: #f9fafb;
+  scroll-behavior: smooth;
+  scroll-margin-top: 80px;
 }
 
 .scrollbar-hide::-webkit-scrollbar {
