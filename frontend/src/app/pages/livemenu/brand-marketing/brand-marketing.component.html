@@ -55,18 +55,59 @@
   </div>
 </header>
 
-<section class="bg-gray-50 py-16">
-  <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
-    <div class="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm">
+<section class="bg-gray-50 py-24">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-black text-gray-900 tracking-tight">
+        Everything you need to <span class="text-orange-600">scale.</span>
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       <div
-        class="w-12 h-12 bg-orange-50 text-orange-600 rounded-2xl flex items-center justify-center mb-6"
+        class="bg-white p-10 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
       >
-        <fa-icon [icon]="icons.tag"></fa-icon>
+        <div
+          class="w-14 h-14 bg-orange-50 text-orange-600 rounded-2xl flex items-center justify-center mb-8"
+        >
+          <fa-icon [icon]="icons.tag" class="text-xl"></fa-icon>
+        </div>
+        <h4 class="text-xl font-black text-gray-900 mb-3">Easy Setup</h4>
+        <p class="text-sm text-gray-500 font-medium leading-relaxed">
+          Launch your digital store in minutes. Add categories, upload photos,
+          and set prices with an interface designed for speed.
+        </p>
       </div>
-      <h4 class="text-xl font-black text-gray-900 mb-2">Easy Setup</h4>
-      <p class="text-sm text-gray-500 font-medium">
-        Add categories and dishes with our intuitive dashboard in seconds.
-      </p>
+
+      <div
+        class="bg-white p-10 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+      >
+        <div
+          class="w-14 h-14 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center mb-8"
+        >
+          <fa-icon [icon]="icons.percent" class="text-xl"></fa-icon>
+        </div>
+        <h4 class="text-xl font-black text-gray-900 mb-3">0% Commission</h4>
+        <p class="text-sm text-gray-500 font-medium leading-relaxed">
+          Stop giving away 30% of your revenue. We take zero commission on your
+          orders. Your hard-earned money stays with you.
+        </p>
+      </div>
+
+      <div
+        class="bg-white p-10 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+      >
+        <div
+          class="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-8"
+        >
+          <fa-icon [icon]="icons.live" class="text-xl"></fa-icon>
+        </div>
+        <h4 class="text-xl font-black text-gray-900 mb-3">Live Tracking</h4>
+        <p class="text-sm text-gray-500 font-medium leading-relaxed">
+          Monitor incoming orders in real-time. Manage your kitchen workflow
+          efficiently with our lightning-fast live dashboard.
+        </p>
+      </div>
     </div>
   </div>
 </section>

@@ -46,11 +46,15 @@ import {
   faLocationDot,
   faTag,
   faEnvelope,
+  faClockRotateLeft,
+  faHandHoldingDollar,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 
 export const Icons = {
+  live: faClockRotateLeft,
+  percent: faHandHoldingDollar,
   envelope: faEnvelope,
   tag: faTag,
   locationArrow: faLocationArrow,
