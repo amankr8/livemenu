@@ -3,7 +3,7 @@ export interface MenuItem {
   name: string;
   desc: string;
   imageUrl: string;
-  category: string;
+  categoryId: number;
   inStock: boolean;
   isVeg: boolean;
   price: number;

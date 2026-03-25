@@ -2,6 +2,7 @@ package com.flykraft.livemenu.service.impl;
 
 import com.flykraft.livemenu.config.TenantContext;
 import com.flykraft.livemenu.dto.menu.MenuItemRequestDto;
+import com.flykraft.livemenu.entity.Category;
 import com.flykraft.livemenu.entity.DishImage;
 import com.flykraft.livemenu.entity.Kitchen;
 import com.flykraft.livemenu.entity.MenuItem;
@@ -9,6 +10,7 @@ import com.flykraft.livemenu.exception.ResourceNotFoundException;
 import com.flykraft.livemenu.model.CloudinaryFile;
 import com.flykraft.livemenu.repository.DishImageRepository;
 import com.flykraft.livemenu.repository.MenuItemRepository;
+import com.flykraft.livemenu.service.CategoryService;
 import com.flykraft.livemenu.service.CloudinaryService;
 import com.flykraft.livemenu.service.KitchenService;
 import com.flykraft.livemenu.service.MenuService;
@@ -19,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
@@ -26,6 +29,7 @@ public class MenuServiceImpl implements MenuService {
     private final MenuItemRepository menuItemRepository;
     private final DishImageRepository dishImageRepository;
     private final KitchenService kitchenService;
+    private final CategoryService categoryService;
     private final CloudinaryService cloudinaryService;
 
     private static final List<String> ALLOWED_FILE_TYPES = List.of("image/jpeg", "image/png");
@@ -49,12 +53,13 @@ public class MenuServiceImpl implements MenuService {
     public MenuItem addMenuItem(MenuItemRequestDto menuItemRequestDto) {
         Long currentKitchenId = TenantContext.getKitchenId();
         Kitchen kitchen = kitchenService.loadKitchenById(currentKitchenId);
+        Category category = categoryService.loadCategoryById(menuItemRequestDto.getCategoryId());
 
         MenuItem menuItem = MenuItem.builder()
                 .kitchen(kitchen)
                 .name(menuItemRequestDto.getName())
                 .desc(menuItemRequestDto.getDesc())
-                .category(menuItemRequestDto.getCategory())
+                .category(category)
                 .inStock(Boolean.TRUE)
                 .isVeg(menuItemRequestDto.getIsVeg())
                 .price(menuItemRequestDto.getPrice())
@@ -96,9 +101,21 @@ public class MenuServiceImpl implements MenuService {
             selectedMenuItem.setDishImage(dishImageRepository.save(dishImage));
             deleteImage(existingImage);
         }
+
+        Long newCategoryId = menuItemRequestDto.getCategoryId();
+        Long currentCategoryId = selectedMenuItem.getCategory() != null ? selectedMenuItem.getCategory().getId() : null;
+
+        if (!Objects.equals(newCategoryId, currentCategoryId)) {
+            if (newCategoryId != null) {
+                Category newCategory = categoryService.loadCategoryById(newCategoryId);
+                selectedMenuItem.setCategory(newCategory);
+            } else {
+                selectedMenuItem.setCategory(null);
+            }
+        }
+
         selectedMenuItem.setName(menuItemRequestDto.getName());
         selectedMenuItem.setDesc(menuItemRequestDto.getDesc());
-        selectedMenuItem.setCategory(menuItemRequestDto.getCategory());
         selectedMenuItem.setIsVeg(menuItemRequestDto.getIsVeg());
         selectedMenuItem.setPrice(menuItemRequestDto.getPrice());
 

@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 public class MenuItemRequestDto {
     private String name;
     private String desc;
-    private String category;
+    private Long categoryId;
     private Boolean isVeg;
     private BigDecimal price;
     private MultipartFile image;

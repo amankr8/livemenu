@@ -24,6 +24,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Category loadCategoryById(Long id) {
+        return categoryRepository.findById(id).orElse(null);
+    }
+
+    @Override
     public Category addNewCategory(CategoryRequestDto categoryRequestDto) {
         Long currentKitchenId = TenantContext.getKitchenId();
         Category category = Category.builder()

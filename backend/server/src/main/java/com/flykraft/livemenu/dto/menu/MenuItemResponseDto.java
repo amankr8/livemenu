@@ -13,7 +13,7 @@ public class MenuItemResponseDto {
     private Long id;
     private String name;
     private String desc;
-    private String category;
+    private Long categoryId;
     private Boolean inStock;
     private Boolean isVeg;
     private BigDecimal price;

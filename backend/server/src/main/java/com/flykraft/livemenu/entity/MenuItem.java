@@ -28,14 +28,15 @@ public class MenuItem extends Auditable {
     @JoinColumn(name = "k_id", nullable = false)
     private Kitchen kitchen;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "c_id")
+    private Category category;
+
     @Column(name = "mi_name", nullable = false)
     private String name;
 
     @Column(name = "mi_desc")
     private String desc;
-
-    @Column(name = "mi_category")
-    private String category;
 
     @Column(name = "mi_in_stock", nullable = false)
     private Boolean inStock;
@@ -54,7 +55,7 @@ public class MenuItem extends Auditable {
                 .id(this.id)
                 .name(this.name)
                 .desc(this.desc)
-                .category(this.category)
+                .categoryId(this.category == null ? null : this.category.getId())
                 .inStock(this.inStock)
                 .isVeg(this.isVeg)
                 .price(this.price)

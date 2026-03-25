@@ -28,7 +28,7 @@ export class MenuComponent {
   groupedMenuItems = computed(() => {
     const items = this.menuItems() || [];
     const groups = items.reduce((acc: any, item) => {
-      const cat = item.category || 'Other';
+      const cat = item.categoryId || 'Other';
       if (!acc[cat]) acc[cat] = [];
       acc[cat].push(item);
       return acc;
