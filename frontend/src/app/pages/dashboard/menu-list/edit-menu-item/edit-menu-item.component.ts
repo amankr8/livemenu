@@ -42,7 +42,7 @@ export class EditMenuItemComponent {
   itemForm: FormGroup = this.fb.group({
     name: ['', Validators.required],
     price: [null, [Validators.required, Validators.min(0)]],
-    category: ['', Validators.required],
+    categoryId: [null],
     desc: [''],
     isVeg: [true],
     imageUrl: [''],

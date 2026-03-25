@@ -39,7 +39,7 @@ export class AddMenuItemComponent {
   itemForm: FormGroup = this.fb.group({
     name: ['', Validators.required],
     desc: ['', Validators.required],
-    category: ['', Validators.required],
+    categoryId: [null],
     price: ['', [Validators.required, Validators.min(0)]],
     isVeg: [true],
   });
