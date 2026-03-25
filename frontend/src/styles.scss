@@ -2,6 +2,11 @@
 @use "tailwindcss";
 
 /* global styles */
+html {
+  scroll-margin-top: 150px;
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   min-height: 100%;

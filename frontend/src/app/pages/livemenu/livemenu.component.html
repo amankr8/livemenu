@@ -1,8 +1,12 @@
 <div class="min-h-screen bg-white">
   <nav
-    class="h-20 flex items-center justify-between px-6 md:px-12 border-b border-gray-50 bg-white sticky top-0 z-50"
+    class="h-20 flex items-center justify-between px-6 md:px-12 border-b border-gray-50 bg-white/80 backdrop-blur-md sticky top-0 z-50"
   >
-    <div routerLink="/" class="flex items-center cursor-pointer gap-2 group">
+    <div
+      [routerLink]="['/']"
+      fragment="home"
+      class="flex items-center cursor-pointer gap-2 group"
+    >
       <fa-icon
         [icon]="icons.logo"
         class="text-orange-600 text-2xl transition-transform group-hover:scale-110"
@@ -16,26 +20,19 @@
       class="hidden md:flex items-center gap-8 text-[11px] font-black uppercase tracking-widest"
     >
       <a
-        routerLink="/features"
-        routerLinkActive="text-orange-600"
+        [routerLink]="['/']"
+        fragment="features"
         class="text-gray-500 hover:text-orange-600 transition-colors relative"
       >
         Features
       </a>
 
       <a
-        routerLink="/contact-us"
-        routerLinkActive="text-orange-600"
+        [routerLink]="['/']"
+        fragment="contact"
         class="text-gray-500 hover:text-orange-600 transition-colors"
       >
         Contact
-      </a>
-
-      <a
-        routerLink="/login"
-        class="px-6 py-3 bg-gray-900 text-white rounded-2xl active:scale-95 hover:bg-black transition-all shadow-lg shadow-gray-200"
-      >
-        Sign In
       </a>
     </div>
   </nav>

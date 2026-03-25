@@ -3,7 +3,11 @@ import {
   importProvidersFrom,
   provideZoneChangeDetection,
 } from '@angular/core';
-import { provideRouter, withComponentInputBinding } from '@angular/router';
+import {
+  provideRouter,
+  withComponentInputBinding,
+  withInMemoryScrolling,
+} from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 
 import { routes } from './app.routes';
@@ -24,7 +28,14 @@ export const appConfig: ApplicationConfig = {
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAuth(() => getAuth()),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes, withComponentInputBinding()),
+    provideRouter(
+      routes,
+      withComponentInputBinding(),
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'enabled',
+        anchorScrolling: 'enabled',
+      }),
+    ),
     provideHttpClient(withInterceptorsFromDi()),
     importProvidersFrom(
       JwtModule.forRoot({
@@ -36,7 +47,7 @@ export const appConfig: ApplicationConfig = {
             'livemenu-server.onrender.com/api/v1/auth',
           ],
         },
-      })
+      }),
     ),
   ],
 };
