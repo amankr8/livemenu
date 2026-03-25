@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-brand-marketing',
-  imports: [FontAwesomeModule, RouterLink],
+  imports: [FontAwesomeModule],
   templateUrl: './brand-marketing.component.html',
 })
 export class BrandMarketingComponent {
