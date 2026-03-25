@@ -31,6 +31,7 @@ export class MenuComponent {
 
   trackById = (_: number, item: MenuItem) => item.id;
 
+  // TODO: Optimize grouping logic by pre-processing data in service or using a memoized selector
   groupedMenuItems = computed(() => {
     const items = this.menuItems() || [];
     const categories = this.categories() || [];

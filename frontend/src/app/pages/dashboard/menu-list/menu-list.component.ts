@@ -6,6 +6,7 @@ import { MenuItem } from '../../../model/menu-item';
 import { MenuService } from '../../../service/menu.service';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { UiService } from '../../../service/ui.service';
+import { CategoryService } from '../../../service/category.service';
 
 @Component({
   selector: 'app-menu-list',
@@ -15,6 +16,7 @@ import { UiService } from '../../../service/ui.service';
 })
 export class MenuListComponent {
   private readonly menuService = inject(MenuService);
+  private readonly categoryService = inject(CategoryService);
   private uiService = inject(UiService);
   icons = Icons;
   defaultImage: string = 'images/dish.png';
@@ -23,8 +25,11 @@ export class MenuListComponent {
   loading = this.menuService.loading;
   error = this.menuService.error;
 
+  categories = this.categoryService.categories;
+
   ngOnInit() {
     this.menuService.loadMenuItems();
+    this.categoryService.loadCategories();
   }
 
   onImageError(event: any): void {
@@ -35,13 +40,23 @@ export class MenuListComponent {
     return imageUrl || this.defaultImage;
   }
 
+  getCategoryName(categoryId: number | null): string {
+    if (!categoryId) return 'Uncategorized';
+
+    const categories = this.categories();
+    if (!categories) return 'Loading...';
+
+    const category = categories.find((c) => c.id === categoryId);
+    return category ? category.name : 'Unknown';
+  }
+
   toggleAvailability(item: MenuItem) {
     this.menuService.toggleAvailability(item.id).subscribe({
       next: () => this.uiService.showToast('Item status updated'),
       error: () => {
         this.uiService.showToast(
           'Failed to update item status. Please try again',
-          'error'
+          'error',
         );
       },
     });
@@ -58,7 +73,7 @@ export class MenuListComponent {
           error: () =>
             this.uiService.showToast(
               'Failed to delete item. Please try again later',
-              'error'
+              'error',
             ),
         });
       },
