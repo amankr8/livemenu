@@ -20,6 +20,7 @@ import { UiService } from '../../../service/ui.service';
   templateUrl: './map-picker.component.html',
 })
 export class MapPickerComponent {
+  @Input() disabled = false;
   @Input() lat!: number;
   @Input() lng!: number;
   @Input() isLocating = false;
@@ -71,6 +72,13 @@ export class MapPickerComponent {
       this.map.panTo({
         lat: this.lat,
         lng: this.lng,
+      });
+    }
+
+    if (changes['disabled']) {
+      this.map.setOptions({
+        gestureHandling: this.disabled ? 'none' : 'greedy',
+        clickableIcons: !this.disabled,
       });
     }
   }

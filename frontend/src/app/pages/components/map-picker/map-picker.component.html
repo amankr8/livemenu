@@ -1,5 +1,5 @@
 <div
-  class="relative h-48 rounded-4xl overflow-hidden bg-gray-100 ring-1 ring-black/5 shadow-inner"
+  class="relative h-48 rounded-3xl overflow-hidden bg-gray-100 ring-1 ring-black/5 shadow-inner"
 >
   <div #mapContainer class="absolute inset-0"></div>
 
@@ -22,7 +22,7 @@
   <button
     type="button"
     (click)="locateMe()"
-    [disabled]="isLocating"
+    [disabled]="isLocating || disabled"
     class="absolute bottom-2 left-1/2 -translate-x-1/2 backdrop-blur bg-white/90 px-3 py-1.5 rounded-full shadow-md text-[9px] font-black uppercase text-orange-600 flex items-center justify-center gap-1.5 leading-none active:scale-95 disabled:opacity-60 disabled:active:scale-100"
   >
     <fa-icon
