@@ -6,8 +6,8 @@ html,
 body {
   min-height: 100%;
   background-color: #f9fafb;
+  scroll-padding-top: 80px;
   scroll-behavior: smooth;
-  scroll-margin-top: 80px;
 }
 
 .scrollbar-hide::-webkit-scrollbar {

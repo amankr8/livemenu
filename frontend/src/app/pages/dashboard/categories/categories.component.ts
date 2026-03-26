@@ -6,6 +6,7 @@ import { CommonModule, Location } from '@angular/common';
 import { Icons } from '../../../utils/icons';
 import { FormsModule } from '@angular/forms';
 import { UiService } from '../../../service/ui.service';
+import { MenuService } from '../../../service/menu.service';
 
 @Component({
   selector: 'app-categories',
@@ -14,6 +15,7 @@ import { UiService } from '../../../service/ui.service';
 })
 export class CategoriesComponent {
   private uiService = inject(UiService);
+  private menuService = inject(MenuService);
   private categoryService = inject(CategoryService);
 
   categories = this.categoryService.categories;
@@ -30,6 +32,7 @@ export class CategoriesComponent {
 
   ngOnInit() {
     this.categoryService.loadCategories();
+    this.menuService.loadMenuItems();
   }
 
   refresh() {
@@ -37,8 +40,9 @@ export class CategoriesComponent {
   }
 
   getItemCount(categoryId: number): number {
-    return 0;
-    // return this.menuService.menuItems().filter(item => item.categoryId === categoryId).length;
+    return (this.menuService.menuItems() ?? []).filter(
+      (item) => item.categoryId === categoryId,
+    ).length;
   }
 
   openAddModal() {
