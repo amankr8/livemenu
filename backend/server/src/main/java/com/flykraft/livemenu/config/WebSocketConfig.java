@@ -19,6 +19,9 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws-orders")
-                .setAllowedOrigins("*");
+                .setAllowedOriginPatterns(
+                        "https://*.livemenu.in",
+                        "https://*.lvh.me"
+                );
     }
 }
