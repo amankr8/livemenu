@@ -92,6 +92,14 @@ export class CategoriesComponent {
   }
 
   onDelete(cat: Category) {
+    if (this.getItemCount(cat.id) > 0) {
+      this.uiService.showToast(
+        'Cannot delete category. It is associated with menu items.',
+        'error',
+      );
+      return;
+    }
+
     this.uiService.ask({
       title: 'Delete Category?',
       message: `Are you sure you want to delete "${cat.name}"? This action cannot be undone.`,
