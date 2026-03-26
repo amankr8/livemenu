@@ -47,7 +47,7 @@ export class MapPickerComponent {
 
     this.map = new Map(this.mapContainer.nativeElement, {
       center: { lat: this.lat, lng: this.lng },
-      zoom: 17,
+      zoom: 16,
       disableDefaultUI: true,
       gestureHandling: 'greedy',
     });
