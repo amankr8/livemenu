@@ -1,4 +1,13 @@
-import { Component, computed, inject, output, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  ElementRef,
+  inject,
+  output,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { AuthService } from '../../../service/auth.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
@@ -18,6 +27,9 @@ import { interval, Subscription } from 'rxjs';
   templateUrl: './otp-login.component.html',
 })
 export class OtpLoginComponent {
+  phoneInput = viewChild<ElementRef<HTMLInputElement>>('phoneInput');
+  otpInput = viewChild<ElementRef<HTMLInputElement>>('otpInput');
+
   private auth = inject(Auth);
   private authService = inject(AuthService);
 
@@ -37,6 +49,20 @@ export class OtpLoginComponent {
 
   success = output<void>();
   close = output<void>();
+
+  constructor() {
+    effect(() => {
+      const currentStep = this.step();
+
+      setTimeout(() => {
+        if (currentStep === 'phone') {
+          this.phoneInput()?.nativeElement.focus();
+        } else if (currentStep === 'otp') {
+          this.otpInput()?.nativeElement.focus();
+        }
+      }, 0);
+    });
+  }
 
   ngAfterViewInit() {
     this.setupRecaptcha();
