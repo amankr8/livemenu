@@ -22,11 +22,13 @@
     </p>
     <div class="flex flex-col sm:flex-row gap-4">
       <button
+        (click)="scrollToContact(contactSection)"
         class="px-8 py-5 bg-orange-600 text-white rounded-[2rem] font-black uppercase tracking-widest shadow-xl shadow-orange-200 hover:bg-orange-700 active:scale-95 transition-all"
       >
         Get Started
       </button>
       <button
+        (click)="openDemo()"
         class="px-8 py-5 bg-white text-gray-900 border-2 border-gray-100 rounded-[2rem] font-black uppercase tracking-widest hover:bg-gray-50 transition-all"
       >
         See Live Demo
@@ -115,7 +117,7 @@
   </div>
 </section>
 
-<section id="contact">
+<section id="contact" #contactSection>
   <div class="py-20 px-6 text-center bg-gray-50/50 border-b border-gray-100">
     <h1
       class="text-4xl md:text-5xl font-black text-gray-900 mt-6 tracking-tight"

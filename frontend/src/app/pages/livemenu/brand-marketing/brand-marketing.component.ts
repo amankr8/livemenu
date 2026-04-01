@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Icons } from '../../../utils/icons';
-import { RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-brand-marketing',
@@ -11,4 +9,12 @@ import { CommonModule } from '@angular/common';
 })
 export class BrandMarketingComponent {
   icons = Icons;
+
+  scrollToContact(element: HTMLElement) {
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  openDemo() {
+    window.open('https://atil.livemenu.in', '_blank');
+  }
 }
