@@ -1,4 +1,4 @@
-import { Component, inject, output, signal } from '@angular/core';
+import { Component, computed, inject, output, signal } from '@angular/core';
 import { AuthService } from '../../../service/auth.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
@@ -53,6 +53,11 @@ export class OtpLoginComponent {
       }
     });
   }
+
+  formattedCountdown = computed(() => {
+    const count = this.countdown();
+    return count < 10 ? `0${count}` : `${count}`;
+  });
 
   setupRecaptcha() {
     if (this.recaptchaVerifier) {
