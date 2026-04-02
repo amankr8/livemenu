@@ -80,12 +80,21 @@
         <div
           class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center text-gray-400 mb-4"
         >
-          <fa-icon [icon]="icons.logo" class="text-3xl"></fa-icon>
+          <fa-icon
+            [icon]="searchTerm() ? icons.search : icons.logo"
+            class="text-3xl"
+          ></fa-icon>
         </div>
-        <h3 class="text-xl font-black text-gray-800">Kitchen is Prepping!</h3>
+        <h3 class="text-xl font-black text-gray-800">
+          {{ searchTerm() ? "No matches found" : "Kitchen is Prepping!" }}
+        </h3>
         <p class="text-gray-500 text-sm mt-1 max-w-xs text-center">
-          We haven't added items to this section yet. Stay tuned for some
-          delicious updates!
+          {{
+            searchTerm()
+              ? "Try searching for something else or browse categories."
+              : "We haven't added items to this section yet. Stay tuned for some
+          delicious updates!"
+          }}
         </p>
       </div>
     </ng-template>

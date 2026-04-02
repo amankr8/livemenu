@@ -22,6 +22,8 @@ export class MenuComponent {
   loading = this.menuService.loading;
   error = this.menuService.error;
 
+  searchTerm = this.menuService.searchTerm;
+
   categories = this.categoryService.categories;
 
   ngOnInit(): void {
@@ -35,32 +37,30 @@ export class MenuComponent {
   groupedMenuItems = computed(() => {
     const items = this.menuItems() || [];
     const categories = this.categories() || [];
+    const search = this.searchTerm().toLowerCase();
 
-    const groups = items.reduce((acc: { [key: string]: MenuItem[] }, item) => {
-      const catKey = item.categoryId
-        ? item.categoryId.toString()
-        : 'uncategorized';
+    const filteredItems = items.filter(
+      (item) =>
+        item.name.toLowerCase().includes(search) ||
+        item.desc?.toLowerCase().includes(search),
+    );
 
-      if (!acc[catKey]) acc[catKey] = [];
-      acc[catKey].push(item);
-      return acc;
-    }, {});
+    const groups = filteredItems.reduce(
+      (acc: { [key: string]: MenuItem[] }, item) => {
+        const catKey = item.categoryId
+          ? item.categoryId.toString()
+          : 'uncategorized';
+        if (!acc[catKey]) acc[catKey] = [];
+        acc[catKey].push(item);
+        return acc;
+      },
+      {},
+    );
 
-    return Object.keys(groups).map((key) => {
-      if (key === 'uncategorized') {
-        return {
-          label: 'Other Items',
-          items: groups[key],
-        };
-      }
-
-      const categoryId = Number(key);
-      const categoryObj = categories.find((c) => c.id === categoryId);
-
-      return {
-        label: categoryObj ? categoryObj.name : 'Unknown',
-        items: groups[key],
-      };
-    });
+    return Object.keys(groups).map((key) => ({
+      label:
+        categories.find((c) => c.id === Number(key))?.name || 'Other Items',
+      items: groups[key],
+    }));
   });
 }

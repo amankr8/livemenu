@@ -22,6 +22,7 @@ import { UiService } from '../../service/ui.service';
 import { OrderService } from '../../service/order.service';
 import { UserRole } from '../../enum/user-role.enum';
 import { UserService } from '../../service/user.service';
+import { MenuService } from '../../service/menu.service';
 
 @Component({
   selector: 'app-homepage',
@@ -43,6 +44,7 @@ export class HomepageComponent {
   private authService = inject(AuthService);
   private userService = inject(UserService);
   private orderService = inject(OrderService);
+  private menuService = inject(MenuService);
   private uiService = inject(UiService);
   private router = inject(Router);
 
@@ -102,6 +104,11 @@ export class HomepageComponent {
     if (this.authService.hasRole(UserRole.USER)) {
       this.userService.loadUser();
     }
+  }
+
+  onSearch(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    this.menuService.setSearch(value);
   }
 
   toggleUserMenu() {

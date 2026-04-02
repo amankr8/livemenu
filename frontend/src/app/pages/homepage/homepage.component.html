@@ -142,12 +142,13 @@
     </div>
 
     <div
-      class="bg-white rounded-2xl border border-gray-200 p-2 mb-6 flex items-center shadow-sm"
+      class="bg-white rounded-2xl border border-gray-200 p-2 mb-6 flex items-center shadow-sm focus-within:border-orange-500/50 transition-all"
     >
       <div class="flex-1 flex items-center px-4 gap-3">
         <fa-icon [icon]="icons.search" class="text-gray-300"></fa-icon>
         <input
           type="text"
+          (input)="onSearch($event)"
           placeholder="Search from the menu..."
           class="w-full py-3 bg-transparent border-none focus:ring-0 text-sm font-bold text-gray-700 placeholder:text-gray-300"
         />

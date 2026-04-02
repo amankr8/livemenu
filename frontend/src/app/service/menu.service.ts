@@ -20,6 +20,12 @@ export class MenuService {
 
   constructor(private http: HttpClient) {}
 
+  searchTerm = signal<string>('');
+
+  setSearch(term: string) {
+    this.searchTerm.set(term.toLowerCase());
+  }
+
   // --------------------
   // Load menu
   // --------------------
