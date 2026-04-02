@@ -64,6 +64,8 @@ export class HomepageComponent {
   showUserMenu = signal(false);
   isOpeningCart = signal(false);
 
+  searchTerm = this.menuService.searchTerm;
+
   icons = Icons;
 
   defaultImage: string = 'images/dish.png';
@@ -109,6 +111,14 @@ export class HomepageComponent {
   onSearch(event: Event) {
     const value = (event.target as HTMLInputElement).value;
     this.menuService.setSearch(value);
+  }
+
+  clearSearch() {
+    this.menuService.setSearch('');
+    const input = document.querySelector(
+      'input[type="text"]',
+    ) as HTMLInputElement;
+    if (input) input.value = '';
   }
 
   toggleUserMenu() {
