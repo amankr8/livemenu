@@ -53,6 +53,7 @@ import {
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 
 export const Icons = {
+  faArrowLeft: faArrowLeft,
   live: faClockRotateLeft,
   percent: faHandHoldingDollar,
   envelope: faEnvelope,
