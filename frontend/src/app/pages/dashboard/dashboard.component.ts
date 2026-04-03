@@ -52,6 +52,11 @@ export class DashboardComponent {
       icon: this.icons.location,
       showPulse: true,
     },
+    {
+      path: '/dashboard/history',
+      label: 'Order History',
+      icon: this.icons.history,
+    },
     { path: '/dashboard/menu', label: 'Menu List', icon: this.icons.bowl },
     {
       path: '/dashboard/categories',
@@ -96,6 +101,7 @@ export class DashboardComponent {
 
   getPageRouteName(): string {
     const url = this.router.url;
+    if (url.includes('/history')) return 'Order History';
     if (url.includes('/live-orders')) return 'Live Orders';
     if (url.includes('/categories')) return 'Menu Categories';
     if (url.includes('/menu/add')) return 'Add New Item';
@@ -109,7 +115,9 @@ export class DashboardComponent {
     const url = this.router.url;
     const crumbs: string[] = [];
 
-    if (url.includes('/live-orders')) {
+    if (url.includes('/history')) {
+      crumbs.push('Order History');
+    } else if (url.includes('/live-orders')) {
       crumbs.push('Live Orders');
     } else if (url.includes('/menu')) {
       crumbs.push('Menu Items');

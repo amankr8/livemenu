@@ -65,6 +65,20 @@ export class OrderService {
         .sort(this.sortByNewest) ?? [],
   );
 
+  readonly deliveredKitchenOrders = computed(
+    () =>
+      this._kitchenOrders()
+        ?.filter((o) => o.status === OrderStatus.DELIVERED)
+        .sort(this.sortByNewest) ?? [],
+  );
+
+  readonly cancelledKitchenOrders = computed(
+    () =>
+      this._kitchenOrders()
+        ?.filter((o) => o.status === OrderStatus.CANCELLED)
+        .sort(this.sortByNewest) ?? [],
+  );
+
   private notificationSound = new Audio('audio/notification.mp3');
   private activeSubscriptions: Map<string, any> = new Map();
 

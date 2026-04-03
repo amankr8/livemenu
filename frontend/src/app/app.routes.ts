@@ -21,6 +21,7 @@ import { BrandMarketingComponent } from './pages/livemenu/brand-marketing/brand-
 import { LivemenuComponent } from './pages/livemenu/livemenu.component';
 import { PrivacyPolicyComponent } from './pages/livemenu/privacy-policy/privacy-policy.component';
 import { TermsOfServiceComponent } from './pages/livemenu/terms-of-service/terms-of-service.component';
+import { OrderHistoryComponent } from './pages/dashboard/order-history/order-history.component';
 
 export const routes: Routes = [
   {
@@ -80,6 +81,7 @@ export const routes: Routes = [
           },
           { path: 'kitchen', component: KitchenComponent },
           { path: 'categories', component: CategoriesComponent },
+          { path: 'history', component: OrderHistoryComponent },
         ],
       },
     ],
