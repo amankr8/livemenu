@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { MenuItem } from '../model/menu-item';
+import { FoodPreference, MenuItem } from '../model/menu-item';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 
@@ -18,13 +18,20 @@ export class MenuService {
   private readonly _error = signal<string | null>(null);
   readonly error = this._error.asReadonly();
 
-  constructor(private http: HttpClient) {}
-
   searchTerm = signal<string>('');
 
   setSearch(term: string) {
     this.searchTerm.set(term.toLowerCase());
   }
+
+  private readonly _activeFilter = signal<FoodPreference>('all');
+  readonly activeFilter = this._activeFilter.asReadonly();
+
+  setFilter(filter: FoodPreference) {
+    this._activeFilter.set(filter);
+  }
+
+  constructor(private http: HttpClient) {}
 
   // --------------------
   // Load menu

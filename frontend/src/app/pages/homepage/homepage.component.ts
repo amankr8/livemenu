@@ -23,6 +23,7 @@ import { OrderService } from '../../service/order.service';
 import { UserRole } from '../../enum/user-role.enum';
 import { UserService } from '../../service/user.service';
 import { MenuService } from '../../service/menu.service';
+import { FoodPreference } from '../../model/menu-item';
 
 @Component({
   selector: 'app-homepage',
@@ -65,6 +66,8 @@ export class HomepageComponent {
   isOpeningCart = signal(false);
 
   searchTerm = this.menuService.searchTerm;
+  showFilterMenu = signal(false);
+  activeFilter = this.menuService.activeFilter;
 
   icons = Icons;
 
@@ -111,6 +114,15 @@ export class HomepageComponent {
   onSearch(event: Event) {
     const value = (event.target as HTMLInputElement).value;
     this.menuService.setSearch(value);
+  }
+
+  toggleFilterMenu() {
+    this.showFilterMenu.update((v) => !v);
+  }
+
+  toggleFilter(type: FoodPreference) {
+    this.menuService.setFilter(type);
+    this.showFilterMenu.set(false);
   }
 
   clearSearch() {

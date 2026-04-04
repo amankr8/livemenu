@@ -23,6 +23,7 @@ export class MenuComponent {
   error = this.menuService.error;
 
   searchTerm = this.menuService.searchTerm;
+  activeFilter = this.menuService.activeFilter;
 
   categories = this.categoryService.categories;
 
@@ -38,12 +39,20 @@ export class MenuComponent {
     const items = this.menuItems() || [];
     const categories = this.categories() || [];
     const search = this.searchTerm().toLowerCase();
+    const filter = this.activeFilter();
 
-    const filteredItems = items.filter(
-      (item) =>
+    const filteredItems = items.filter((item) => {
+      const matchesSearch =
         item.name.toLowerCase().includes(search) ||
-        item.desc?.toLowerCase().includes(search),
-    );
+        item.desc?.toLowerCase().includes(search);
+
+      const matchesFilter =
+        filter === 'all' ||
+        (filter === 'veg' && item.isVeg) ||
+        (filter === 'non-veg' && !item.isVeg);
+
+      return matchesSearch && matchesFilter;
+    });
 
     const groups = filteredItems.reduce(
       (acc: { [key: string]: MenuItem[] }, item) => {

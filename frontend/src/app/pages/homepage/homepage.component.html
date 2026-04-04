@@ -171,12 +171,81 @@
           </div>
         </button>
 
-        <div class="pr-2">
+        <div class="pr-2 relative" id="filterMenuContainer">
           <button
+            (click)="toggleFilterMenu()"
+            [class.text-orange-600]="activeFilter() !== 'all'"
+            [class.bg-orange-50]="activeFilter() !== 'all'"
             class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-orange-600 hover:bg-white rounded-full transition-all active:scale-90"
           >
             <fa-icon [icon]="icons.filter" class="text-xs"></fa-icon>
+            <div
+              *ngIf="activeFilter() !== 'all'"
+              class="absolute top-2 right-2 w-2 h-2 bg-orange-500 rounded-full border border-white"
+            ></div>
           </button>
+
+          <div
+            *ngIf="showFilterMenu()"
+            class="absolute right-0 top-12 w-48 bg-white rounded-2xl shadow-2xl border border-gray-100 py-2 z-[110] animate-in fade-in zoom-in-95 duration-200"
+          >
+            <div class="px-4 py-2 mb-1 border-b border-gray-50">
+              <span
+                class="text-[10px] font-black text-gray-400 uppercase tracking-widest"
+                >Dietary Preference</span
+              >
+            </div>
+
+            <button
+              (click)="toggleFilter('all')"
+              class="w-full flex items-center justify-between px-4 py-3 text-xs font-bold transition-all hover:bg-gray-50"
+              [class.text-orange-600]="activeFilter() === 'all'"
+            >
+              <span>Show All</span>
+              <fa-icon
+                *ngIf="activeFilter() === 'all'"
+                [icon]="icons.check"
+              ></fa-icon>
+            </button>
+
+            <button
+              (click)="toggleFilter('veg')"
+              class="w-full flex items-center justify-between px-4 py-3 text-xs font-bold text-green-600 transition-all hover:bg-green-50"
+              [class.bg-green-50]="activeFilter() === 'veg'"
+            >
+              <div class="flex items-center gap-2">
+                <div
+                  class="w-3 h-3 border-2 border-green-600 p-[2px] flex items-center justify-center"
+                >
+                  <div class="w-full h-full bg-green-600 rounded-full"></div>
+                </div>
+                <span>Veg</span>
+              </div>
+              <fa-icon
+                *ngIf="activeFilter() === 'veg'"
+                [icon]="icons.check"
+              ></fa-icon>
+            </button>
+
+            <button
+              (click)="toggleFilter('non-veg')"
+              class="w-full flex items-center justify-between px-4 py-3 text-xs font-bold text-red-600 transition-all hover:bg-red-50"
+              [class.bg-red-50]="activeFilter() === 'non-veg'"
+            >
+              <div class="flex items-center gap-2">
+                <div
+                  class="w-3 h-3 border-2 border-red-600 p-[2px] flex items-center justify-center"
+                >
+                  <div class="w-full h-full bg-red-600 rounded-full"></div>
+                </div>
+                <span>Non-Veg</span>
+              </div>
+              <fa-icon
+                *ngIf="activeFilter() === 'non-veg'"
+                [icon]="icons.check"
+              ></fa-icon>
+            </button>
+          </div>
         </div>
       </div>
     </div>

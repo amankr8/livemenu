@@ -1,3 +1,5 @@
+export type FoodPreference = 'all' | 'veg' | 'non-veg';
+
 export interface MenuItem {
   id: number;
   name: string;
