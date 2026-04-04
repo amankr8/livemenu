@@ -38,6 +38,9 @@ export class HomepageComponent {
     if (!target.closest('#userMenuContainer')) {
       this.showUserMenu.set(false);
     }
+    if (!target.closest('#filterMenuContainer')) {
+      this.showFilterMenu.set(false);
+    }
   }
 
   private kitchenService = inject(KitchenService);
