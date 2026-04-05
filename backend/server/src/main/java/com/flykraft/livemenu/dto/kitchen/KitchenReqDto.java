@@ -11,4 +11,5 @@ public class KitchenReqDto {
     private String subdomain;
     private String address;
     private String whatsapp;
+    private String location;
 }

@@ -4,4 +4,5 @@ export interface Kitchen {
   tagline: string;
   address: string;
   whatsapp: string;
+  location?: string;
 }

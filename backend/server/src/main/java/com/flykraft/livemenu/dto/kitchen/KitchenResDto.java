@@ -13,4 +13,5 @@ public class KitchenResDto {
     private String tagline;
     private String address;
     private String whatsapp;
+    private String location;
 }

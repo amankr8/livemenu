@@ -43,6 +43,9 @@ public class Kitchen extends Auditable implements Serializable {
     @Column(name = "k_whatsapp", nullable = false)
     private String whatsapp;
 
+    @Column(name = "k_location")
+    private String location;
+
     @OneToMany(mappedBy = "kitchen", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MenuItem> menuItems;
 
@@ -59,6 +62,7 @@ public class Kitchen extends Auditable implements Serializable {
                 .tagline(this.tagline)
                 .address(this.address)
                 .whatsapp(this.whatsapp)
+                .location(this.location)
                 .build();
     }
 }

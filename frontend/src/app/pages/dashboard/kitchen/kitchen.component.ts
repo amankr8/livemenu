@@ -34,6 +34,7 @@ export class KitchenComponent {
     tagline: [''],
     address: ['', Validators.required],
     whatsapp: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+    location: ['', Validators.required],
   });
 
   constructor() {
@@ -47,6 +48,7 @@ export class KitchenComponent {
           tagline: kitchen.tagline,
           address: kitchen.address,
           whatsapp: kitchen.whatsapp,
+          location: kitchen.location,
         },
         { emitEvent: false }
       );
@@ -79,6 +81,33 @@ export class KitchenComponent {
           this.kitchenForm.enable();
         },
       });
+    }
+  }
+
+  onLocateMe() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const lat = position.coords.latitude.toFixed(4);
+          const lng = position.coords.longitude.toFixed(4);
+          const locationCoords = `${lat},${lng}`;
+          this.kitchenForm.patchValue({ location: locationCoords });
+          this.kitchenForm.markAsDirty();
+          this.uiService.showToast('Location fetched successfully!');
+        },
+        (error) => {
+          console.error('Geolocation error:', error);
+          this.uiService.showToast(
+            'Unable to fetch location. Please ensure location access is enabled.',
+            'error'
+          );
+        }
+      );
+    } else {
+      this.uiService.showToast(
+        'Geolocation is not supported by your browser.',
+        'error'
+      );
     }
   }
 }

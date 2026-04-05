@@ -48,6 +48,7 @@ public class KitchenServiceImpl implements KitchenService {
                 .tagline(kitchenReqDto.getTagline())
                 .address(kitchenReqDto.getAddress())
                 .whatsapp(kitchenReqDto.getWhatsapp())
+                .location(kitchenReqDto.getLocation())
                 .subdomain(subdomain)
                 .build();
         return kitchenRepository.save(kitchen);
@@ -61,6 +62,7 @@ public class KitchenServiceImpl implements KitchenService {
         selectedKitchen.setTagline(kitchenReqDto.getTagline());
         selectedKitchen.setAddress(kitchenReqDto.getAddress());
         selectedKitchen.setWhatsapp(kitchenReqDto.getWhatsapp());
+        selectedKitchen.setLocation(kitchenReqDto.getLocation());
         return kitchenRepository.save(selectedKitchen);
     }
 }

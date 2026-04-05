@@ -94,6 +94,51 @@
         </div>
       </div>
 
+      <hr class="border-gray-50" />
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+        <label
+          class="text-sm font-bold text-gray-700 uppercase tracking-wider mt-2"
+          >Location Coordinates</label
+        >
+        <div class="md:col-span-2 space-y-4">
+          <div>
+            <div class="flex items-end gap-2">
+              <div class="flex-1">
+                <label class="block text-xs text-gray-600 font-semibold mb-2">Coordinates (lat,lng)</label>
+                <input
+                  formControlName="location"
+                  type="text"
+                  placeholder="e.g. 28.6139,77.2090"
+                  readonly
+                  class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:bg-white outline-none transition-all cursor-not-allowed"
+                />
+              </div>
+              <button
+                type="button"
+                (click)="onLocateMe()"
+                class="px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all transform active:scale-95 flex items-center gap-2"
+              >
+                <fa-icon [icon]="icons.mapMarker"></fa-icon>
+                <span>Locate Me</span>
+              </button>
+            </div>
+            <p class="mt-1 text-xs text-gray-500">
+              Click "Locate Me" to automatically fill your kitchen's location coordinates.
+            </p>
+            <p
+              *ngIf="
+                kitchenForm.get('location')?.touched &&
+                kitchenForm.get('location')?.invalid
+              "
+              class="mt-2 text-xs text-red-500 font-semibold flex items-center gap-1"
+            >
+              <fa-icon [icon]="icons.outOfStock"></fa-icon> Location coordinates are required (format: lat,lng).
+            </p>
+          </div>
+        </div>
+      </div>
+
       <div class="pt-6 flex justify-end">
         <button
           type="submit"
