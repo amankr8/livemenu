@@ -1,5 +1,6 @@
 package com.flykraft.livemenu.service;
 
+import com.flykraft.livemenu.dto.order.DeliveryLocationDto;
 import com.flykraft.livemenu.dto.order.OrderRequestDto;
 import com.flykraft.livemenu.entity.Order;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,4 +25,7 @@ public interface OrderService {
 
     @PreAuthorize("hasAuthority('KITCHEN_OWNER')")
     void cancelOrder(Long orderId);
+
+    @PreAuthorize("hasAuthority('USER')")
+    Boolean validateDelivery(DeliveryLocationDto deliveryLocationDto);
 }

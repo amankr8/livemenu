@@ -1,6 +1,7 @@
 package com.flykraft.livemenu.service.impl;
 
 import com.flykraft.livemenu.config.TenantContext;
+import com.flykraft.livemenu.dto.order.DeliveryLocationDto;
 import com.flykraft.livemenu.dto.order.OrderRequestDto;
 import com.flykraft.livemenu.dto.user.AddressReqDto;
 import com.flykraft.livemenu.dto.user.UserReqDto;
@@ -129,5 +130,43 @@ public class OrderServiceImpl implements OrderService {
 
         String userTopic = "/topic/user/" + updatedOrder.getUser().getId();
         messagingTemplate.convertAndSend(userTopic, updatedOrder.toResponseDto());
+    }
+
+    @Override
+    public Boolean validateDelivery(DeliveryLocationDto deliveryLocationDto) {
+        Kitchen kitchen = kitchenService.loadKitchenById(TenantContext.getKitchenId());
+
+        if (kitchen.getDeliveryRadius() == null || kitchen.getLocation() == null) {
+            return true;
+        }
+
+        String[] locationParts = kitchen.getLocation().split(",");
+        if (locationParts.length != 2) {
+            return true;
+        }
+
+        Double kitchenLat = Double.parseDouble(locationParts[0].trim());
+        Double kitchenLng = Double.parseDouble(locationParts[1].trim());
+
+        double distance = calculateDistance(kitchenLat, kitchenLng, deliveryLocationDto.getLat(), deliveryLocationDto.getLng());
+        return distance <= kitchen.getDeliveryRadius();
+    }
+
+    /**
+     * Calculate distance between two coordinates using Haversine formula
+     * Returns distance in kilometers
+     */
+    private double calculateDistance(Double lat1, Double lon1, Double lat2, Double lon2) {
+        final int EARTH_RADIUS = 6371;
+
+        double latDistance = Math.toRadians(lat2 - lat1);
+        double lonDistance = Math.toRadians(lon2 - lon1);
+
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return EARTH_RADIUS * c;
     }
 }

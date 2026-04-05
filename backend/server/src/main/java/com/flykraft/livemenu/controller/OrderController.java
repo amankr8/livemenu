@@ -1,5 +1,6 @@
 package com.flykraft.livemenu.controller;
 
+import com.flykraft.livemenu.dto.order.DeliveryLocationDto;
 import com.flykraft.livemenu.dto.order.OrderRequestDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,4 +22,7 @@ public interface OrderController {
 
     @DeleteMapping("/{orderId}")
     ResponseEntity<?> cancelOrder(@PathVariable Long orderId);
+
+    @PostMapping("/validate-delivery")
+    ResponseEntity<?> validateDelivery(@RequestBody DeliveryLocationDto deliveryLocationDto);
 }

@@ -1,6 +1,7 @@
 package com.flykraft.livemenu.controller.impl;
 
 import com.flykraft.livemenu.controller.OrderController;
+import com.flykraft.livemenu.dto.order.DeliveryLocationDto;
 import com.flykraft.livemenu.dto.order.OrderRequestDto;
 import com.flykraft.livemenu.entity.Order;
 import com.flykraft.livemenu.service.OrderService;
@@ -38,5 +39,11 @@ public class OrderControllerImpl implements OrderController {
     public ResponseEntity<?> cancelOrder(Long orderId) {
         orderService.cancelOrder(orderId);
         return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<?> validateDelivery(DeliveryLocationDto deliveryLocationDto) {
+        Boolean isDeliveryValid = orderService.validateDelivery(deliveryLocationDto);
+        return ResponseEntity.ok(isDeliveryValid);
     }
 }
