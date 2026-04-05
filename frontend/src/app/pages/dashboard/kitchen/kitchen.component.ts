@@ -34,7 +34,8 @@ export class KitchenComponent {
     tagline: [''],
     address: ['', Validators.required],
     whatsapp: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
-    location: ['', Validators.required],
+    location: [''],
+    deliveryRadius: ['', [Validators.required, Validators.pattern('^[1-9]+$')]],
   });
 
   constructor() {
@@ -49,8 +50,9 @@ export class KitchenComponent {
           address: kitchen.address,
           whatsapp: kitchen.whatsapp,
           location: kitchen.location,
+          deliveryRadius: kitchen.deliveryRadius,
         },
-        { emitEvent: false }
+        { emitEvent: false },
       );
       this.kitchenForm.markAsPristine();
     });
@@ -99,14 +101,14 @@ export class KitchenComponent {
           console.error('Geolocation error:', error);
           this.uiService.showToast(
             'Unable to fetch location. Please ensure location access is enabled.',
-            'error'
+            'error',
           );
-        }
+        },
       );
     } else {
       this.uiService.showToast(
         'Geolocation is not supported by your browser.',
-        'error'
+        'error',
       );
     }
   }

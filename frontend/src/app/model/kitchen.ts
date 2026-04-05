@@ -5,4 +5,5 @@ export interface Kitchen {
   address: string;
   whatsapp: string;
   location?: string;
+  deliveryRadius?: number;
 }

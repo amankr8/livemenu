@@ -9,6 +9,7 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -22,6 +23,9 @@ import java.util.List;
 @Entity
 @Table(name = "kitchens")
 public class Kitchen extends Auditable implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,6 +50,9 @@ public class Kitchen extends Auditable implements Serializable {
     @Column(name = "k_location")
     private String location;
 
+    @Column(name = "k_delivery_radius")
+    private Integer deliveryRadius;
+
     @OneToMany(mappedBy = "kitchen", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MenuItem> menuItems;
 
@@ -63,6 +70,7 @@ public class Kitchen extends Auditable implements Serializable {
                 .address(this.address)
                 .whatsapp(this.whatsapp)
                 .location(this.location)
+                .deliveryRadius(this.deliveryRadius)
                 .build();
     }
 }

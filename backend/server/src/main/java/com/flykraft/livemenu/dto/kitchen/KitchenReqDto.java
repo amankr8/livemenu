@@ -12,4 +12,5 @@ public class KitchenReqDto {
     private String address;
     private String whatsapp;
     private String location;
+    private Integer deliveryRadius;
 }

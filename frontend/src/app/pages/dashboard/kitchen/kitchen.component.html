@@ -105,7 +105,9 @@
           <div>
             <div class="flex items-end gap-2">
               <div class="flex-1">
-                <label class="block text-xs text-gray-600 font-semibold mb-2">Coordinates (lat,lng)</label>
+                <label class="block text-xs text-gray-600 font-semibold mb-2"
+                  >Coordinates (lat,lng)</label
+                >
                 <input
                   formControlName="location"
                   type="text"
@@ -124,7 +126,8 @@
               </button>
             </div>
             <p class="mt-1 text-xs text-gray-500">
-              Click "Locate Me" to automatically fill your kitchen's location coordinates.
+              Click "Locate Me" to automatically fill your kitchen's location
+              coordinates.
             </p>
             <p
               *ngIf="
@@ -133,9 +136,51 @@
               "
               class="mt-2 text-xs text-red-500 font-semibold flex items-center gap-1"
             >
-              <fa-icon [icon]="icons.outOfStock"></fa-icon> Location coordinates are required (format: lat,lng).
+              <fa-icon [icon]="icons.outOfStock"></fa-icon> Location coordinates
+              are required (format: lat,lng).
             </p>
           </div>
+        </div>
+      </div>
+
+      <hr class="border-gray-50" />
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+        <label
+          class="text-sm font-bold text-gray-700 uppercase tracking-wider mt-2"
+          >Delivery Radius (km)</label
+        >
+        <div class="md:col-span-2">
+          <input
+            formControlName="deliveryRadius"
+            type="number"
+            min="1"
+            placeholder="e.g. 5"
+            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:bg-white outline-none transition-all"
+          />
+          <p class="mt-1 text-xs text-gray-500">
+            Enter the delivery radius in kilometers (must be a positive
+            integer).
+          </p>
+          <p
+            *ngIf="
+              kitchenForm.get('deliveryRadius')?.touched &&
+              kitchenForm.get('deliveryRadius')?.invalid
+            "
+            class="mt-2 text-xs text-red-500 font-semibold flex items-center gap-1"
+          >
+            <fa-icon [icon]="icons.outOfStock"></fa-icon>
+            <span
+              *ngIf="kitchenForm.get('deliveryRadius')?.hasError('required')"
+            >
+              Delivery radius is required.
+            </span>
+            <span
+              *ngIf="kitchenForm.get('deliveryRadius')?.hasError('pattern')"
+            >
+              Delivery radius must be a valid positive integer.
+            </span>
+          </p>
         </div>
       </div>
 
